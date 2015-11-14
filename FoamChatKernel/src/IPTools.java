@@ -15,24 +15,6 @@ import java.util.logging.Logger;
  */
 public class IPTools {
 
-    /**
-     *
-     * Modified from
-     * http://crunchify.com/how-to-get-server-ip-address-and-hostname-in-java/
-     *
-     * @return the IP address of current system in a String
-     */
-    public static String getCurrentIP_old() throws UnknownHostException {
-        InetAddress ip = null;
-        String hostname;
-        ip = InetAddress.getLocalHost();
-        hostname = ip.getHostName();
-        System.out.println("Your current IP address : " + ip);
-        System.out.println("Your current Hostname : " + hostname);
-
-        return ip + "";
-    }
-
     public static List<String> getCurrentIP() throws SocketException {
         ArrayList<String> out = new ArrayList<String>();
         Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
