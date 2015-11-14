@@ -2,20 +2,18 @@
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Logan Walker <logan.walker@me.com>
  *
  */
-public class FoamChatKernel {
+public class FoamChatKernel extends Thread{
 
     List<NodeReference> nodes;
     FoamChatServer server;
 
-    public FoamChatKernel() {
+    public FoamChatKernel(){
 
         nodes = new ArrayList<>();
         try {
@@ -33,10 +31,14 @@ public class FoamChatKernel {
         }
         
         server = new FoamChatServer( nodes );
-
+    }
+    
+    public void run() {
+        
     }
 
     public static void main(String[] args) {
         FoamChatKernel kernel = new FoamChatKernel();
+        kernel.start();
     }
 }
