@@ -7,8 +7,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Server Thread Object
@@ -17,12 +15,12 @@ import java.util.logging.Logger;
  */
 public class FoamChatServer extends Thread {
 
-    public final int port = 1010;
+    public final int port = 4242;
     public boolean running;
 
     private List<NodeReference> nodes;
-    private List<NodeReference> homeNodes;
-    private ChatLog chatLog;
+    private final List<NodeReference> homeNodes;
+    private final ChatLog chatLog;
 
     private ServerSocket serverSocket;
 
@@ -79,6 +77,7 @@ public class FoamChatServer extends Thread {
             this.out = out;
             this.in = in;
             this.chatLog = cl;
+
             this.start();
         }
 
@@ -89,12 +88,14 @@ public class FoamChatServer extends Thread {
                 out.writeObject(this.chatLog);
                 this.chatLog.unlock();
             } catch (IOException ex) {
-                
+                //Could not send
             }
 
             try {
                 ChatLog chatIn = (ChatLog) this.in.readObject();
+                this.chatLog.mergeLog(chatIn);
             } catch (IOException | ClassNotFoundException ex) {
+                //Could not recieve
             }
 
         }

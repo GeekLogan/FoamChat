@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -7,40 +8,54 @@ import java.util.concurrent.Semaphore;
  *
  * @author Robert McKay <mckay.130@osu.edu>
  * @editor Logan Walker <logan.walker@me.com>
+ * 
  */
-public class ChatLog {
+public class ChatLog implements Serializable {
+
     static public Semaphore mutex;
     public List<User> logins;
     public List<Message> messages;
-    
-    public ChatLog(){
-        try {
-            mutex = new Semaphore(1);
-            mutex.acquire();
-            logins = new ArrayList<>();
-            messages = new ArrayList<>();
-            mutex.release();
-        } catch (InterruptedException ex) {
-            System.exit(400);
-        }
+
+    public ChatLog() {
+        mutex = new Semaphore(1);
+        this.lockWait();
+        logins = new ArrayList<>();
+        messages = new ArrayList<>();
+        this.unlock();
     }
-    
-    public void addLoginName(User newName){
+
+    public void addLoginName(User newName) {
+        this.lockWait();
         logins.add(newName);
+        this.unlock();
     }
-    
-    public void addMessage(Message newMessage){
+
+    public void addMessage(Message newMessage) {
+        this.lockWait();
         messages.add(newMessage);
+        this.unlock();
     }
-    
-    public void removeName(User name){
-        if(logins.contains(name)){
+
+    public void removeName(User name) {
+        this.lockWait();
+        if (logins.contains(name)) {
             int position = logins.indexOf(name);
             logins.remove(position);
         }
+        this.unlock();
     }
     
-    public boolean lock(){
+    public void mergeLog( ChatLog in ) {
+        in.lockWait();
+        this.lockWait();
+        
+        
+        
+        in.unlock();
+        this.unlock();
+    }
+
+    public boolean lock() {
         try {
             this.mutex.acquire();
             return true;
@@ -48,7 +63,7 @@ public class ChatLog {
             return false;
         }
     }
-    
+
     public void unlock() {
         this.mutex.release();
     }
@@ -56,6 +71,6 @@ public class ChatLog {
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
-        while(!this.lock());
+        while (!this.lock());
     }
 }

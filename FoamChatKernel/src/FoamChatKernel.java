@@ -32,6 +32,7 @@ public class FoamChatKernel extends Thread{
         }
         
         server = new FoamChatServer( nodes, chatLog );
+        
     }
     
     public void run() {
