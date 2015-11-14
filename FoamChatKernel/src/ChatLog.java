@@ -7,26 +7,26 @@ import java.util.List;
  * @author Robert McKay <mckay.130@osu.edu>
  */
 public class ChatLog {
-    public List<String> loginName;
-    public List<String> message;
+    public List<User> logins;
+    public List<User> messages;
     
     public ChatLog(){
-        loginName = new ArrayList<>();
-        message = new ArrayList<>();
+        logins = new ArrayList<>();
+        messages = new ArrayList<>();
     }
     
-    public void addLoginName(String newName){
-        loginName.add(newName);
+    public void addLoginName(User newName){
+        logins.add(newName);
     }
     
-    public void addMessage(String newMessage){
-        message.add(newMessage);
+    public void addMessage(User newMessage){
+        messages.add(newMessage);
     }
     
-    public void removeName(String name){
-        if(loginName.contains(name)){
-            int position = loginName.indexOf(name);
-            loginName.remove(position);
+    public void removeName(User name){
+        if(logins.contains(name)){
+            int position = logins.indexOf(name);
+            logins.remove(position);
         }
     }
 }
