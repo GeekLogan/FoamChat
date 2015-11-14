@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ChatLog {
     public List<User> logins;
-    public List<User> messages;
+    public List<Message> messages;
     
     public ChatLog(){
         logins = new ArrayList<>();
@@ -19,7 +19,7 @@ public class ChatLog {
         logins.add(newName);
     }
     
-    public void addMessage(User newMessage){
+    public void addMessage(Message newMessage){
         messages.add(newMessage);
     }
     
