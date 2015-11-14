@@ -1,7 +1,6 @@
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -37,7 +36,7 @@ public class IPTools {
 
     public static void main(String[] args) {
         try {
-            System.out.println(IPTools.getCurrentIP());
+            System.out.println("IPs: " + IPTools.getCurrentIP());
         } catch (SocketException ex) {
             Logger.getLogger(IPTools.class.getName()).log(Level.SEVERE, null, ex);
         }
