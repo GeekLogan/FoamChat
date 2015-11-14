@@ -6,11 +6,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Logan Walker <logan.walker@me.com>
@@ -40,27 +35,33 @@ public class FoamChatPeering extends Thread {
     }
 
     private void tryConnect(String ip) {
+        ObjectOutputStream out = null;
+        ObjectInputStream in = null;
         try {
             Socket sock = new Socket(ip, FoamChatServer.port);
-            ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
-            ObjectInputStream in
-                    = new ObjectInputStream(sock.getInputStream());
-            
-            this.chatLog.lockWait();
-            
-            ChatLog recieved = (ChatLog) in.readObject();
-            out.writeObject(this.chatLog);
-            recieved.rebuildLock();
-            recieved.lockWait();
-            
-            this.chatLog.mergeLog(recieved);
-            recieved.unlock();
-            LogUtilities.sortFields(this.chatLog);
-            
-        } catch (IOException | ClassNotFoundException ex) {
+            out = new ObjectOutputStream(sock.getOutputStream());
+            in = new ObjectInputStream(sock.getInputStream());
+        } catch (IOException ex) {
             //can't connect
-        } finally {
-            this.chatLog.unlock();
         }
+
+        try {
+            this.chatLog.lockWait();
+            ChatLog recieved = null;
+            if (in != null) {
+                recieved = (ChatLog) in.readObject();
+            }
+            if (out != null) {
+                out.writeObject(this.chatLog);
+            }
+            if (recieved != null) {
+                recieved.rebuildLock();
+                recieved.lockWait();
+                this.chatLog.mergeLog(recieved);
+                recieved.unlock();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+        }
+        LogUtilities.sortFields(this.chatLog);
     }
 }
