@@ -1,6 +1,7 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
@@ -13,20 +14,20 @@ import java.util.concurrent.Semaphore;
 public class ChatLog implements Serializable {
 
     static public Semaphore mutex;
-    public List<User> logins;
+    public List<User> users;
     public List<Message> messages;
 
     public ChatLog() {
-        mutex = new Semaphore(1);
+        this.rebuildLock();
         this.lockWait();
-        logins = new ArrayList<>();
+        users = new ArrayList<>();
         messages = new ArrayList<>();
         this.unlock();
     }
 
     public void addLoginName(User newName) {
         this.lockWait();
-        logins.add(newName);
+        users.add(newName);
         this.unlock();
     }
 
@@ -38,9 +39,8 @@ public class ChatLog implements Serializable {
 
     public void removeName(User name) {
         this.lockWait();
-        if (logins.contains(name)) {
-            int position = logins.indexOf(name);
-            logins.remove(position);
+        if (users.contains(name)) {
+            users.remove( users.indexOf(name) );
         }
         this.unlock();
     }
@@ -49,9 +49,21 @@ public class ChatLog implements Serializable {
         in.lockWait();
         this.lockWait();
         
+        for( Message a : in.messages ) {
+            if( !this.messages.contains( a ) ) {
+                this.messages.add( a );
+            }
+        }
         
+        for( User a : in.users ) {
+            if( !this.users.contains( a ) ) {
+                this.users.add( a );
+            }
+        }
         
         in.unlock();
+        LogUtilities.sortFields(this);
+        
         this.unlock();
     }
 
@@ -71,6 +83,10 @@ public class ChatLog implements Serializable {
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
-        while (!this.lock());
+        while( !this.lock() );
+    }
+
+    void rebuildLock() {
+        this.mutex = new Semaphore(1);
     }
 }

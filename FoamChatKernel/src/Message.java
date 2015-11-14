@@ -22,8 +22,8 @@ public class Message implements Serializable {
         this.message = message_in;
         created = new Date();
         
-        this.to = to.getID();
-        this.from = from.getID();
+        this.to = to.id;
+        this.from = from.id;
     }
     
     public Date createdAt() {
