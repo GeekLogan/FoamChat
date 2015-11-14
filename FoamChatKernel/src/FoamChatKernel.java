@@ -13,6 +13,5 @@ public class FoamChatKernel {
     }
     
     public static void main(String[] args) {
-        System.out.print( IPTools.getCurrentIP() );
     }
 }
