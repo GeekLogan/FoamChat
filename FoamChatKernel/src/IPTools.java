@@ -34,6 +34,13 @@ public class IPTools {
         return out;
     }
 
+    /**
+     * 
+     * MAIN method:
+     *      Runs simple sanity check of the currently implemented methods
+     * 
+     * @param args -> arguments from cmd line 
+     */
     public static void main(String[] args) {
         try {
             System.out.println("IPs: " + IPTools.getCurrentIP());

@@ -11,25 +11,29 @@ import java.util.logging.Logger;
  *
  */
 public class FoamChatKernel {
+
     List<NodeReference> nodes;
-    
+
     public FoamChatKernel() {
-        
+
         nodes = new ArrayList<>();
         try {
-            for( String ip : IPTools.getCurrentIP() ) {
-                nodes.add( new NodeReference( ip ) );
+            for (String ip : IPTools.getCurrentIP()) {
+                nodes.add(new NodeReference(ip));
             }
         } catch (SocketException ex) {
             System.err.println("No IP Interfaces Found!");
-            System.exit( -1 );
+            System.exit(404);
         }
-        
-        
-        
+
+        if (nodes.size() == 0) {
+            System.err.println("No IP Interfaces Found!");
+            System.exit(404);
+        }
+
     }
-    
+
     public static void main(String[] args) {
-        
+        FoamChatKernel kernel = new FoamChatKernel();
     }
 }
