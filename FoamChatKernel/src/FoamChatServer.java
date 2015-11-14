@@ -1,17 +1,15 @@
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Server Thread
+ * Server Thread Object
  *
  * @author Logan Walker <logan.walker@me.com>
  */
@@ -22,10 +20,12 @@ public class FoamChatServer extends Thread {
 
     private List<NodeReference> nodes;
     private List<NodeReference> homeNodes;
+    private ChatLog chatLog;
 
     private ServerSocket serverSocket;
 
-    public FoamChatServer(List<NodeReference> nodes_in) {
+    public FoamChatServer(List<NodeReference> nodes_in, ChatLog cl) {
+        this.chatLog = cl;
         nodes = nodes_in;
         homeNodes = new ArrayList<>();
 
@@ -54,12 +54,34 @@ public class FoamChatServer extends Thread {
         while (running) {
             try {
                 Socket connection = serverSocket.accept();
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(connection.getInputStream()));
+                ObjectOutputStream out
+                        = new ObjectOutputStream(connection.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(
+                        connection.getInputStream());
+                ResponderThread rs = new ResponderThread(out, in, chatLog);
+                
             } catch (IOException ex) {
                 System.err.println("Can not get input connection!");
                 System.exit(402);
             }
+        }
+    }
+    
+    private class ResponderThread extends Thread {
+        ObjectOutputStream out;
+        ObjectInputStream in;
+        ChatLog chatLog;
+        
+        public ResponderThread( ObjectOutputStream out, ObjectInputStream in, ChatLog cl ){
+            this.out = out;
+            this.in = in;
+            this.chatLog = cl;
+            this.start();
+        }
+        
+        @Override
+        public void run() {
+            
         }
     }
 }

@@ -15,6 +15,7 @@ public class FoamChatKernel extends Thread{
 
     public FoamChatKernel(){
 
+        ChatLog chatLog = new ChatLog();
         nodes = new ArrayList<>();
         try {
             for (String ip : IPTools.getCurrentIP()) {
@@ -30,7 +31,7 @@ public class FoamChatKernel extends Thread{
             System.exit(404);
         }
         
-        server = new FoamChatServer( nodes );
+        server = new FoamChatServer( nodes, chatLog );
     }
     
     public void run() {
