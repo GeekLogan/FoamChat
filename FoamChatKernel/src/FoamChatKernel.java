@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public class FoamChatKernel {
 
     List<NodeReference> nodes;
+    FoamChatServer server;
 
     public FoamChatKernel() {
 
@@ -26,10 +27,12 @@ public class FoamChatKernel {
             System.exit(404);
         }
 
-        if (nodes.size() == 0) {
+        if (nodes.isEmpty()) {
             System.err.println("No IP Interfaces Found!");
             System.exit(404);
         }
+        
+        server = new FoamChatServer( nodes );
 
     }
 
