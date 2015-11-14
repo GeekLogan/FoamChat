@@ -93,6 +93,8 @@ public class FoamChatServer extends Thread {
 
             try {
                 ChatLog chatIn = (ChatLog) this.in.readObject();
+                chatIn.rebuildLock();
+                chatIn.unlock();
                 this.chatLog.mergeLog(chatIn);
             } catch (IOException | ClassNotFoundException ex) {
                 //Could not recieve

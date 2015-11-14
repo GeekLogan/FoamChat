@@ -1,5 +1,5 @@
-
 import java.security.PublicKey;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -8,38 +8,22 @@ import java.util.Random;
  */
 public class User {
 
-    private PublicKey key;
-    private String displayName;
-    private int id;
+    public final PublicKey key;
+    public final String displayName;
+    public final int id;
+    public final String[] addrs;
 
-    public User(PublicKey key_in, String display_name) {
+    public User(PublicKey key_in, String display_name, List<String> addrs_list) {
         key = key_in;
         displayName = display_name;
         id = idInitializer();
-    }
-
-    public void changeDisplayName(String newDisplay) {
-        displayName = newDisplay;
-    }
-
-    public String getDisplayName() {
-        return displayName;
+        addrs = (String[]) addrs_list.toArray();
     }
 
     // this initializes the random id
     public static int idInitializer() {
         Random rndGenerator = new Random();
-        int randomInt = rndGenerator.nextInt(2147483647);
-
-        return randomInt;
-    }
-
-    public int getID() {
-        return id;
-    }
-
-    public PublicKey getKey() {
-        return key;
+        return rndGenerator.nextInt(2147483647);
     }
 
 }
