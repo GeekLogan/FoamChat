@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class FoamChatServer extends Thread {
 
-    public final int port = 4242;
+    public static final int port = 4242;
     public boolean running;
 
     private List<NodeReference> nodes;
