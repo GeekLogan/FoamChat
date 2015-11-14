@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Server Thread Object
@@ -59,29 +61,42 @@ public class FoamChatServer extends Thread {
                 ObjectInputStream in = new ObjectInputStream(
                         connection.getInputStream());
                 ResponderThread rs = new ResponderThread(out, in, chatLog);
-                
+
             } catch (IOException ex) {
                 System.err.println("Can not get input connection!");
                 System.exit(402);
             }
         }
     }
-    
+
     private class ResponderThread extends Thread {
+
         ObjectOutputStream out;
         ObjectInputStream in;
         ChatLog chatLog;
-        
-        public ResponderThread( ObjectOutputStream out, ObjectInputStream in, ChatLog cl ){
+
+        public ResponderThread(ObjectOutputStream out, ObjectInputStream in, ChatLog cl) {
             this.out = out;
             this.in = in;
             this.chatLog = cl;
             this.start();
         }
-        
+
         @Override
         public void run() {
-            
+            try {
+                this.chatLog.lockWait();
+                out.writeObject(this.chatLog);
+                this.chatLog.unlock();
+            } catch (IOException ex) {
+                
+            }
+
+            try {
+                ChatLog chatIn = (ChatLog) this.in.readObject();
+            } catch (IOException | ClassNotFoundException ex) {
+            }
+
         }
     }
 }
