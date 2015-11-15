@@ -23,10 +23,12 @@ public class EncryptionMachine {
     private String ext = ".key";
     private String pubExt = ".pub";
     private String privExt = ".priv";
+    public  static String filename;
 
     public EncryptionMachine(String fileName) throws Exception {
         this.keyCipher = Cipher.getInstance("RSA");
         this.aesCipher = Cipher.getInstance("AES");
+        EncryptionMachine.filename = fileName;
         if (!(new File(fileName + pubExt + ext).exists() && new File(fileName + privExt + ext).exists())) {
             this.keyPair = generateKeyPair(fileName);
         }else{

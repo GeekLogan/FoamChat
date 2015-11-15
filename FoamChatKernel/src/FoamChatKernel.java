@@ -16,9 +16,9 @@ public class FoamChatKernel extends Thread {
 
         ChatLog chatLog = new ChatLog();
         List<String> man = new ArrayList<>();
-        man.add("25.16.95.241");
+        //man.add("25.16.95.241");
 
-        User me = new User( null, "Logan", IPTools.getHomeNodes() );
+        User me = new User( null, "LoganEatsPoop", IPTools.getHomeNodes() );
         chatLog.addUser(me);
         peering = new FoamChatPeering(chatLog, man);
         server = new FoamChatServer(chatLog);

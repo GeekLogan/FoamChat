@@ -1,34 +1,32 @@
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.SecretKey;
 import java.io.*;
 import java.net.Socket;
+import java.security.InvalidKeyException;
 
 /**
  * Created by chris on 11/14/15.
  */
 public class FileClient {
-    private static String ip = "127.0.0.1";
-    private static int port = 3248;
-    private static String out = "/home/chris/dev/tmp.mkv";
-    public FileClient(String ip, int port, String out){
-        this.ip = ip;
-        this.port = port;
-        this.out = out;
+    public FileClient(){
+        //Do Nothing
     }
-    public static void main(String[] args){
+    public void saveFile(FoamFile foamFile, String out, Cipher cipher) throws InvalidKeyException {
         byte[] aByte = new byte[1];
         int bytesRead;
-
         Socket socket = null;
-        InputStream inputStream = null;
+        CipherInputStream cipherInputStream = null;
 
         try {
-            socket = new Socket( ip , port );
-            inputStream = socket.getInputStream();
+            socket = new Socket( foamFile.ip[0] , foamFile.port );
+            cipherInputStream = new CipherInputStream(socket.getInputStream(),cipher);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        if (inputStream != null) {
+        if (cipherInputStream != null) {
 
             FileOutputStream fos = null;
             BufferedOutputStream bufferedOutputStream = null;
@@ -38,7 +36,7 @@ public class FileClient {
 
                 do {
                     bufferedOutputStream.write(aByte);
-                    bytesRead = inputStream.read(aByte);
+                    bytesRead = cipherInputStream.read(aByte);
                 } while (bytesRead != -1);
 
                 bufferedOutputStream.flush();
@@ -48,5 +46,8 @@ public class FileClient {
                 e.printStackTrace();
             }
         }
+    }
+    public static void main(String[] args){
+
     }
 }

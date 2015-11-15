@@ -15,8 +15,7 @@ public class Message implements Serializable {
     final boolean isEncrypted;
     final FoamFile file;
 
-    public Message(String message_in, String key, User to, User from, FoamFile file) {
-        this.file = file;
+    public Message(String message_in, String key, User to, User from, String file) {
         isEncrypted = (key == null);
         if (isEncrypted) {
             //encrypt
@@ -28,6 +27,9 @@ public class Message implements Serializable {
 
         this.to = to.id;
         this.from = from.id;
+        FileServer fileServer = new FileServer();
+        this.file = fileServer.getFoamFile(file);
+        this.file.ip = from.addrs;
     }
 
     public Date createdAt() {

@@ -1,4 +1,6 @@
 
+import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,45 +9,60 @@ import java.net.Socket;
  * Created by chris on 11/14/15.
  */
 public class FileServer {
-    public static String file = "/home/chris/Downloads/MLP5x18.mp4";
-    public FileServer(String file){
-        FileServer.file = file;
+    public FoamFile getFoamFile(String fileStr, Cipher cipher) {
+        FoamFile foamFile = new FoamFile();
+        File file = new File(fileStr);
+        foamFile.size = file.length();
+        foamFile.fileName = file.getName();
+        ServerThread serverThread = new ServerThread(file,cipher);
+        return foamFile;
     }
-    public static void main(String[] args) {
-        while(true){
-            ServerSocket serverSocket = null;
-            Socket socket = null;
-            BufferedOutputStream toClient = null;
-            try {
-                serverSocket = new ServerSocket(3248);
-                socket = serverSocket.accept();
-                FileThread fileThread = new FileThread(toClient,socket,file);
+    private static class ServerThread extends Thread {
+        File file;
+        Cipher cipher;
+        public ServerThread(File file, Cipher cipher){
+            this.file = file;
+            this.cipher = cipher;
+            this.start();
+        }
+        public void run() {
+            while (true) {
+                ServerSocket serverSocket = null;
+                Socket socket = null;
+                BufferedOutputStream toClient = null;
+                try {
+                    serverSocket = new ServerSocket(3248);
+                    socket = serverSocket.accept();
+                    FileThread fileThread = new FileThread(toClient, socket, file, cipher);
 
-            } catch (Exception e){
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            return;
         }
     }
     private static class FileThread extends Thread{
         BufferedOutputStream toClient;
         Socket socket;
-        String file;
-        public FileThread(BufferedOutputStream out, Socket socket, String file){
+        File file;
+        Cipher cipher;
+        public FileThread(BufferedOutputStream out, Socket socket, File file, Cipher cipher){
             this.toClient = out;
             this.socket = socket;
             this.file = file;
+            this.cipher = cipher;
             this.start();
         }
         @Override
         public void run(){
             try {
-                toClient = new BufferedOutputStream(socket.getOutputStream());
+                CipherOutputStream cipherOutputStream = new CipherOutputStream(socket.getOutputStream(),cipher);
+                toClient = new BufferedOutputStream(cipherOutputStream);
             }catch (Exception e){
 
             }
+
             if(toClient != null){
-                File file = new File(this.file);
                 byte[] fileBytes = new byte[(int)file.length()];
                 FileInputStream fileInputStream = null;
                 try{
@@ -54,7 +71,7 @@ public class FileServer {
                     e.printStackTrace();
                 }
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-                try{
+                try {
                     bufferedInputStream.read(fileBytes,0,fileBytes.length);
                     toClient.write(fileBytes,0,fileBytes.length);
                     toClient.flush();
