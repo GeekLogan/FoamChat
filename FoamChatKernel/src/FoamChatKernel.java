@@ -52,12 +52,7 @@ public class FoamChatKernel {
                 if(!useJSON) {
                     boolean isFirst = true;
                     for (User a : chatLog.users) {
-                        if (!isFirst) {
-                            System.out.print(",");
-                        } else {
-                            isFirst = false;
-                        }
-                        System.out.println(a.id + ":" + a.displayName);
+                        System.out.println(a.displayName+":"+a.id);
                     }
                 }else{
                     JSONArray jsonArray = new JSONArray();
@@ -71,18 +66,8 @@ public class FoamChatKernel {
                 }
 
             } else if (line.equals("lsma")) {
-                boolean isFirst = true;
                 for (Message a : chatLog.messages) {
-                    if (!isFirst) {
-                        System.out.print(',');
-                    } else {
-                        isFirst = false;
-                    }
-                    if (useJSON) {
-                        System.out.print(" \"" + a.to + "\" : { \"" + a.from + "\", \"" + a.message + "\" }");
-                    } else {
-                        System.out.println(a.to + ":" + a.from + ":" + a.message);
-                    }
+                        System.out.println(getUser(a.from).displayName + ": " + a.message);
                 }
             } else if (line.startsWith("getn-")) {
                 boolean found = false;
@@ -99,17 +84,8 @@ public class FoamChatKernel {
                 }
             } else if (line.equals("lsm")) {
                 if(!useJSON) {
-                    boolean isFirst = true;
                     for (Message a : chatLog.messages) {
-                        if (a.to == me.id) {
-                            if (!isFirst) {
-                                System.out.print(',');
-                            } else {
-                                isFirst = false;
-                            }
-                            System.out.print(" \"" + a.from + "\" : \"");
-                            System.out.print(encryptor.decrypt(a.message, a.keyString) + '"');
-                        }
+                        System.out.println(getUser(a.from).displayName + ": " + encryptor.decrypt(a.message, a.keyString));
                     }
                 }else {
                     JSONArray jsonArray = new JSONArray();
