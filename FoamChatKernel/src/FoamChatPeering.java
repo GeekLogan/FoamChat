@@ -4,7 +4,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +46,6 @@ public class FoamChatPeering extends Thread {
     }
 
     private void tryConnect(String ip) {
-        this.chatLog.lockWait();
         String[] locals = IPTools.getHomeNodes();
         for (int i = 0; i < locals.length; i++) {
             if (locals[i].equals(ip)) {
@@ -56,6 +54,7 @@ public class FoamChatPeering extends Thread {
         }
 
         System.err.println("Trying Connect... (" + ip + ")");
+        this.chatLog.lockWait();
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
@@ -71,7 +70,6 @@ public class FoamChatPeering extends Thread {
 
         if (in != null && out != null) {
             try {
-                
                 ChatLog recieved = null;
                 System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
