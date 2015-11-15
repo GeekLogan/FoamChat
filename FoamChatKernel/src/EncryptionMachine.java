@@ -36,6 +36,7 @@ public class EncryptionMachine {
 
     public SecretKey makeKey() throws Exception{
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(256);
         return keyGenerator.generateKey();
     }
 
@@ -88,8 +89,6 @@ public class EncryptionMachine {
 
     public String encryptKey(byte[] input, PublicKey publicKey) throws Exception {
         this.keyCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        //input = DatatypeConverter.printBase64Binary(input.getBytes(StandardCharsets.UTF_8));
-        //byte[] raw = DatatypeConverter.parseBase64Binary(input);
         return DatatypeConverter.printBase64Binary(this.keyCipher.doFinal(input));
     }
 
