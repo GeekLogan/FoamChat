@@ -47,6 +47,7 @@ public class FoamChatPeering extends Thread {
     }
 
     private void tryConnect(String ip) {
+        this.chatLog.lockWait();
         String[] locals = IPTools.getHomeNodes();
         for (int i = 0; i < locals.length; i++) {
             if (locals[i].equals(ip)) {
@@ -69,7 +70,6 @@ public class FoamChatPeering extends Thread {
         }
 
         if (in != null && out != null) {
-            this.chatLog.lockWait();
             try {
                 
                 ChatLog recieved = null;
@@ -83,7 +83,7 @@ public class FoamChatPeering extends Thread {
                 System.err.println("Peer-processing Broke");
             }
             LogUtilities.sortFields(this.chatLog);
-            this.chatLog.unlock();
         }
+        this.chatLog.unlock();
     }
 }
