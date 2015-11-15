@@ -1,13 +1,13 @@
 
+import java.io.Serializable;
 import java.security.PublicKey;
-import java.util.List;
 import java.util.Random;
 
 /**
  *
  * @author Robert McKay <mckay.130@osu.edu>
  */
-public class User {
+public class User implements Serializable {
 
     public final PublicKey key;
     public final String displayName;
