@@ -18,23 +18,15 @@ public class FoamChatServer extends Thread {
     public static final int port = 4242;
     public boolean running;
 
-    private final List<NodeReference> homeNodes;
+    private final String[] homeNodes;
     private final ChatLog chatLog;
 
     private ServerSocket serverSocket;
 
     public FoamChatServer(ChatLog cl) {
         this.chatLog = cl;
-        homeNodes = new ArrayList<>();
-
-        try {
-            for (String ip : IPTools.getCurrentIP()) {
-                homeNodes.add(new NodeReference(ip));
-            }
-        } catch (SocketException ex) {
-            System.err.println("No IP Interfaces Found!");
-            System.exit(404);
-        }
+        
+        homeNodes = IPTools.getHomeNodes();
 
         try {
             serverSocket = new ServerSocket(port);
