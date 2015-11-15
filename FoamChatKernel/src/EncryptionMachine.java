@@ -16,7 +16,6 @@ import java.security.spec.RSAPublicKeySpec;
  */
 public class EncryptionMachine {
     public KeyPair keyPair;
-    private SecretKey aesKey;
     private Cipher keyCipher,aesCipher;
     private String ext = ".key";
     private String pubExt = ".pub";
@@ -36,7 +35,7 @@ public class EncryptionMachine {
 
     public SecretKey makeKey() throws Exception{
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(256);
+        //keyGenerator.init(256);
         return keyGenerator.generateKey();
     }
 
@@ -102,9 +101,9 @@ public class EncryptionMachine {
 
     public String[] encrypt(String input,PublicKey publicKey) throws Exception {
         String[] data = new String[2];
-        aesKey = this.makeKey();
+        SecretKey aesKey = this.makeKey();
         data[0] = encryptKey(aesKey.getEncoded(),publicKey);
-        this.aesCipher.init(Cipher.ENCRYPT_MODE, this.aesKey);
+        this.aesCipher.init(Cipher.ENCRYPT_MODE, aesKey);
         input = DatatypeConverter.printBase64Binary(input.getBytes(StandardCharsets.UTF_8));
         byte[] raw = DatatypeConverter.parseBase64Binary(input);
         data[1] = DatatypeConverter.printBase64Binary(this.aesCipher.doFinal(raw));
