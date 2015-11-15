@@ -56,7 +56,7 @@ public class ChatLog implements Serializable, Cloneable {
         for (int j = 0; j < in.messages.length; j++) {
             boolean isIn = false;
             for (int i = 0; i < this.messages.length && !isIn; i++) {
-                if (this.messages[i].equals(in.messages[j])) {
+                if (this.messages[i].roughEq(in.messages[j])) {
                     isIn = true;
                 }
             }
@@ -68,7 +68,7 @@ public class ChatLog implements Serializable, Cloneable {
         for (int j = 0; j < in.users.length; j++) {
             boolean isIn = false;
             for (int i = 0; i < this.users.length && !isIn; i++) {
-                if (this.users[i].equals(in.users[j])) {
+                if (this.users[i].idEq(in.users[j])) {
                     isIn = true;
                 }
             }

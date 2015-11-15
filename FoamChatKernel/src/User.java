@@ -21,5 +21,7 @@ public class User implements Serializable {
         addrs = addrs_list;
     }
 
-
+    public boolean idEq( User u ) {
+        return u.id == this.id;
+    }
 }
