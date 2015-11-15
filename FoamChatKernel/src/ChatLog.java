@@ -83,20 +83,17 @@ public class ChatLog implements Serializable, Cloneable {
 
     public boolean lock() {
         boolean didget = this.mutex.tryAcquire();
-        if(didget) System.err.println("--> Locked");
         return didget;
     }
 
     public void unlock() {
         this.mutex.release();
-        System.err.println("--> Unlocked!");
     }
 
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
         this.mutex.acquireUninterruptibly();
-        System.err.println("--> Locked!");
     }
 
     void rebuildLock() {
