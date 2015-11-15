@@ -23,7 +23,7 @@ public class FoamChatServer extends Thread {
 
     private ServerSocket serverSocket;
 
-    public FoamChatServer( ChatLog cl) {
+    public FoamChatServer(ChatLog cl) {
         this.chatLog = cl;
         homeNodes = new ArrayList<>();
 

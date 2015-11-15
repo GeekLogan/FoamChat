@@ -14,16 +14,18 @@ public class LogUtilities {
     }
 
     private static class UserComp implements Comparator<User> {
+
         @Override
         public int compare(User e1, User e2) {
             return e1.id - e2.id;
         }
     }
-    
+
     private static class MessageComp implements Comparator<Message> {
+
         @Override
         public int compare(Message e1, Message e2) {
-            return (int) ( e1.created.getTime() - e2.created.getTime() );
+            return (int) (e1.created.getTime() - e2.created.getTime());
         }
     }
 }

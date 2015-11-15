@@ -23,6 +23,10 @@ public class FoamChatPeering extends Thread {
         this.start();
     }
 
+    public void setStop() {
+        running = false;
+    }
+
     public void run() {
         while (running) {
             chatLog.lock();
