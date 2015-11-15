@@ -120,7 +120,7 @@ public class FoamChatKernel {
                     for(Message msg : chatLog.messages){
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("from",msg.from);
-                        jsonObject.put("displayName",encryptor.decrypt(msg.message,msg.keyString));
+                        jsonObject.put("text",encryptor.decrypt(msg.message,msg.keyString));
                         jsonArray.put(jsonObject);
                     }
                     System.out.println(jsonArray.toString());
