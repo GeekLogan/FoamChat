@@ -7,9 +7,9 @@ import java.net.Socket;
  * Created by chris on 11/14/15.
  */
 public class FileServer {
-    public File file;
+    public static String file = "/home/chris/Downloads/MLP5x18.mp4";
     public FileServer(String file){
-        this.file = new File(file);
+        FileServer.file = file;
     }
     public static void main(String[] args) {
         while(true){
@@ -19,7 +19,7 @@ public class FileServer {
             try {
                 serverSocket = new ServerSocket(3248);
                 socket = serverSocket.accept();
-                FileThread fileThread = new FileThread(toClient,socket);
+                FileThread fileThread = new FileThread(toClient,socket,file);
 
             } catch (Exception e){
 
@@ -30,9 +30,11 @@ public class FileServer {
     private static class FileThread extends Thread{
         BufferedOutputStream toClient;
         Socket socket;
-        public FileThread(BufferedOutputStream out, Socket socket){
+        String file;
+        public FileThread(BufferedOutputStream out, Socket socket, String file){
             this.toClient = out;
             this.socket = socket;
+            this.file = file;
             this.start();
         }
         @Override
@@ -43,7 +45,7 @@ public class FileServer {
 
             }
             if(toClient != null){
-                File file = new File("/home/chris/Downloads/OP1.mkv");
+                File file = new File(this.file);
                 byte[] fileBytes = new byte[(int)file.length()];
                 FileInputStream fileInputStream = null;
                 try{

@@ -5,10 +5,14 @@ import java.net.Socket;
  * Created by chris on 11/14/15.
  */
 public class FileClient {
-    private static final String ip = "127.0.0.1";
-    private static final int port = 3248;
-    private static final String out = "/home/chris/dev/tmp.mkv";
-
+    private static String ip = "127.0.0.1";
+    private static int port = 3248;
+    private static String out = "/home/chris/dev/tmp.mkv";
+    public FileClient(String ip, int port, String out){
+        this.ip = ip;
+        this.port = port;
+        this.out = out;
+    }
     public static void main(String[] args){
         byte[] aByte = new byte[1];
         int bytesRead;
@@ -19,8 +23,8 @@ public class FileClient {
         try {
             socket = new Socket( ip , port );
             inputStream = socket.getInputStream();
-        } catch (IOException ex) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -40,8 +44,8 @@ public class FileClient {
                 bufferedOutputStream.flush();
                 bufferedOutputStream.close();
                 socket.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
