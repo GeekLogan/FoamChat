@@ -1,7 +1,10 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 
 /**
  *
@@ -45,22 +48,26 @@ public class FoamChatKernel {
             String line = in.readLine();
 
             chatLog.lockWait();
-            if (useJSON) {
-                System.out.print("{");
-            }
             if (line.equals("lsu")) {
-                boolean isFirst = true;
-                for (User a : chatLog.users) {
-                    if (!isFirst && useJSON) {
-                        System.out.print(",");
-                    } else {
-                        isFirst = false;
-                    }
-                    if (useJSON) {
-                        System.out.print(" \"" + a.id + "\" : \"" + a.displayName + "\"");
-                    } else {
+                if(!useJSON) {
+                    boolean isFirst = true;
+                    for (User a : chatLog.users) {
+                        if (!isFirst) {
+                            System.out.print(",");
+                        } else {
+                            isFirst = false;
+                        }
                         System.out.println(a.id + ":" + a.displayName);
                     }
+                }else{
+                    JSONArray jsonArray = new JSONArray();
+                    for(User user : chatLog.users){
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("id",user.id);
+                        jsonObject.put("displayName",user.displayName);
+                        jsonArray.put(jsonObject);
+                    }
+                    System.out.println(jsonArray.toString());
                 }
 
             } else if (line.equals("lsma")) {
@@ -95,17 +102,28 @@ public class FoamChatKernel {
                     System.out.println("\"NA\"");
                 }
             } else if (line.equals("lsm")) {
-                boolean isFirst = true;
-                for (Message a : chatLog.messages) {
-                    if (a.to == me.id) {
-                        if (!isFirst) {
-                            System.out.print(',');
-                        } else {
-                            isFirst = false;
+                if(!useJSON) {
+                    boolean isFirst = true;
+                    for (Message a : chatLog.messages) {
+                        if (a.to == me.id) {
+                            if (!isFirst) {
+                                System.out.print(',');
+                            } else {
+                                isFirst = false;
+                            }
+                            System.out.print(" \"" + a.from + "\" : \"");
+                            System.out.print(encryptor.decrypt(a.message, a.keyString) + '"');
                         }
-                        System.out.print(" \"" + a.from + "\" : \"");
-                        System.out.print(encryptor.decrypt(a.message, a.keyString) + '"');
                     }
+                }else {
+                    JSONArray jsonArray = new JSONArray();
+                    for(Message msg : chatLog.messages){
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("from",msg.from);
+                        jsonObject.put("displayName",encryptor.decrypt(msg.message,msg.keyString));
+                        jsonArray.put(jsonObject);
+                    }
+                    System.out.println(jsonArray.toString());
                 }
             } else if (line.startsWith("msg")) {
                 String[] split = line.split(":");
@@ -114,9 +132,6 @@ public class FoamChatKernel {
                 chatLog.addMessageNonBlocking(toAdd);
             } else if (line.equals("exit")) {
                 System.exit(1);
-            }
-            if (useJSON) {
-                System.out.println(" }");
             }
             chatLog.unlock();
 
