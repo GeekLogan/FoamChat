@@ -8,20 +8,36 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate  {
+    
+    @IBOutlet weak var RightTable: NSTableView!
+    @IBOutlet weak var LeftTable: NSTableView!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        RightTable.setDataSource( self )
+        LeftTable.setDataSource( self )
     }
 
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
+    
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        return 10
+    }
+    
+    func tableView(aTableView: NSTableView, objectValueForTableColumn aTableColumn: NSTableColumn?,row rowIndex: Int) -> AnyObject? {
+        
+        if aTableColumn != nil {
+            return "Test"
+        } else {
+            return "Test"
+        }
+    }
 }
 

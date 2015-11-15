@@ -11,10 +11,13 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
-
+    var Users = [String]()
+    var Messages = [String]()
+    var MessageSenders = [String]()
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
+        var proc = ProcessInterface()
+        
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

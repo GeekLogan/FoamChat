@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C6FD7FAD-E6D9-4422-A5A2-0F8909BFE2A6</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>FoamChat</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>8844E1ABB7498F7845D43510E371D14627955A55</key>
 		<string>https://github.com/GeekLogan/FoamChat.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>FoamChat-OSX/FoamChat/FoamChat.xcodeproj/project.xcworkspace</string>
+	<string>FoamChat-OSX/FoamChat/FoamChat.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>8844E1ABB7498F7845D43510E371D14627955A55</key>
