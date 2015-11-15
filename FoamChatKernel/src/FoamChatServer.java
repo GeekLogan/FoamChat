@@ -67,30 +67,31 @@ public class FoamChatServer extends Thread {
             this.in = in;
             this.chatLog = cl;
 
-            System.err.println("Responding to request!");
+            //System.err.println("Responding to request!");
             this.start();
         }
 
         @Override
         public void run() {
-            this.chatLog.lockWait();
 
             try {
+                this.chatLog.lockWait();
                 out.writeObject(this.chatLog);
+                this.chatLog.unlock();
             } catch (IOException ex) {
-                System.err.println("Failed to Write object!");
+                //System.err.println("Failed to Write object!");
                 //Could not send
             }
 
             try {
                 ChatLog chatIn = (ChatLog) this.in.readObject();
+                this.chatLog.lockWait();
                 this.chatLog.mergeLog(chatIn);
+                this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException ex) {
-                System.err.println("Failed to rebuild from transmission!");
+                //System.err.println("Failed to rebuild from transmission!");
                 //Could not recieve
             }
-
-            this.chatLog.unlock();
         }
 
     }

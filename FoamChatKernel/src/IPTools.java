@@ -55,18 +55,18 @@ public class IPTools {
 
         try {
             for (String ip : IPTools.getCurrentIP()) {
-                out.add( ip );
+                out.add(ip);
             }
         } catch (SocketException ex) {
             System.err.println("No IP Interfaces Found!");
             System.exit(404);
         }
-        
+
         String[] out2 = new String[out.size()];
-        for(int i = 0; i < out.size(); i++) {
+        for (int i = 0; i < out.size(); i++) {
             out2[i] = out.get(i);
         }
-        
+
         return out2;
     }
 }

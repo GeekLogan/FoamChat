@@ -78,16 +78,17 @@ public class ChatLog implements Serializable, Cloneable {
         }
 
         LogUtilities.sortFields(this);
-        LogUtilities.statLog(this);
+        //LogUtilities.statLog(this);
+        //LogUtilities.dumpLog(this);
 
     }
 
-    public boolean lock() {
+    public final boolean lock() {
         boolean didget = this.mutex.tryAcquire();
         return didget;
     }
 
-    public void unlock() {
+    public final void unlock() {
         this.mutex.release();
     }
 
@@ -95,7 +96,7 @@ public class ChatLog implements Serializable, Cloneable {
         this.mutex.acquireUninterruptibly();
     }
 
-    void rebuildLock() {
+    final void rebuildLock() {
         this.mutex = new Semaphore(1);
     }
 
