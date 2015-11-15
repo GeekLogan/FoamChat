@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,19 +30,23 @@ public class FoamChatPeering extends Thread {
 
     public void run() {
         while (running) {
-                chatLog.lockWait();
-                Object[] users = chatLog.users;
-                chatLog.unlock();
-                for (Object u1 : users) {
-                    User u = (User) u1;
-                    for (String ip : u.addrs) {
-                        tryConnect(ip);
-                    }
-                    for (String ip : manualIPs) {
-                        tryConnect(ip);
-                    }
+            List<String> ips = new ArrayList<>(manualIPs);
+            chatLog.lockWait();
+            for (User u : chatLog.users) {
+                for (String ip : u.addrs) {
+                    ips.add(ip);
                 }
-            
+            }
+            chatLog.unlock();
+
+            for (String ip : ips) {
+                tryConnect(ip);
+            }
+
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException ex) {
+            }
         }
     }
 
@@ -53,7 +58,7 @@ public class FoamChatPeering extends Thread {
             }
         }
 
-        System.err.println("Trying Connect... (" + ip + ")");
+        //System.err.println("Trying Connect... (" + ip + ")");
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
@@ -63,7 +68,7 @@ public class FoamChatPeering extends Thread {
             out = new ObjectOutputStream(sock.getOutputStream());
             in = new ObjectInputStream(sock.getInputStream());
         } catch (IOException ex) {
-            System.err.println("Could not connect");
+            //System.err.println("Could not connect");
             //can't connect
         }
 
@@ -71,16 +76,15 @@ public class FoamChatPeering extends Thread {
         if (in != null && out != null) {
             try {
                 ChatLog recieved = null;
-                System.err.println("... read Object");
+                //System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
                 out.writeObject(this.chatLog);
                 if (recieved != null) {
                     this.chatLog.mergeLog(recieved);
                 }
             } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Peer-processing Broke");
+                //System.err.println("Peer-processing Broke");
             }
-            LogUtilities.sortFields(this.chatLog);
         }
         this.chatLog.unlock();
     }

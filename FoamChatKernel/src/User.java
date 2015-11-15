@@ -20,7 +20,7 @@ public class User implements Serializable {
         addrs = addrs_list;
     }
 
-    public boolean idEq( User in ) {
+    public boolean idEq(User in) {
         return in.id == this.id;
     }
 }

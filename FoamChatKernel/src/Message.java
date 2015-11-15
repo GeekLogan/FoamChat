@@ -16,7 +16,7 @@ public class Message implements Serializable {
 
     public Message(String message_in, User to, User from, EncryptionMachine em) throws Exception {//, FoamFile file) {
         String[] enc = em.encrypt(message_in, to.key);
-        
+
         this.keyString = enc[0];
         this.message = enc[1];
 
