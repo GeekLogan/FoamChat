@@ -1,5 +1,4 @@
 import javax.crypto.Cipher;
-import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.Arrays;
 
 /**
  * Handles Encryption and Decryption of Strings, key generation, and key loading
@@ -113,16 +111,6 @@ public class EncryptionMachine {
         return data;
     }
 
-    public String[] encrypt(String input,PublicKey publicKey,File file) throws Exception {
-        String[] data = new String[2];
-        aesKey = this.makeKey();
-        data[0] = encryptKey(aesKey.getEncoded(),publicKey);
-        this.aesCipher.init(Cipher.ENCRYPT_MODE, this.aesKey);
-        input = DatatypeConverter.printBase64Binary(input.getBytes(StandardCharsets.UTF_8));
-        byte[] raw = DatatypeConverter.parseBase64Binary(input);
-        data[1] = DatatypeConverter.printBase64Binary(this.aesCipher.doFinal(raw));
-        return data;
-    }
 
     public String decrypt(String input, String keyStr) throws Exception {
         SecretKey key = decryptKey(keyStr);
