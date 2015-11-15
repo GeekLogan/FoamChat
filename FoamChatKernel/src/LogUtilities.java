@@ -13,6 +13,17 @@ public class LogUtilities {
         System.err.println("Size of Users: " + in.users.length);
         System.err.println("Size of Messages: " + in.messages.length);
     }
+    
+    public static void dumpLog(ChatLog in) {
+        System.out.println("Users: ");
+        for( User a : in.users ) {
+            System.out.println( a.displayName );
+        }
+        System.out.println("Messages: ");
+        for( Message a : in.messages ) {
+            System.out.println( a.from + " : " + a.message );
+        }
+    }
 
     public static void sortFields(ChatLog in) {
         Arrays.sort(in.users, new UserComp());
