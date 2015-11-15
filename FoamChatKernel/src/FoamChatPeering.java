@@ -54,7 +54,6 @@ public class FoamChatPeering extends Thread {
         }
 
         System.err.println("Trying Connect... (" + ip + ")");
-        this.chatLog.lockWait();
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
@@ -68,6 +67,7 @@ public class FoamChatPeering extends Thread {
             //can't connect
         }
 
+        this.chatLog.lockWait();
         if (in != null && out != null) {
             try {
                 ChatLog recieved = null;

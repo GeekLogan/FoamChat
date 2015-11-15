@@ -89,10 +89,12 @@ public class ChatLog implements Serializable, Cloneable {
 
     public void unlock() {
         this.mutex.release();
+        System.err.println("--> Unlocked!");
     }
 
     void lockWait() {
         this.mutex.acquireUninterruptibly();
+        System.err.println("--> Locked!");
     }
 
     void rebuildLock() {
