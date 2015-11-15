@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
  * @author Robert McKay <mckay.130@osu.edu>
  * @editor Logan Walker <logan.walker@me.com>
  */

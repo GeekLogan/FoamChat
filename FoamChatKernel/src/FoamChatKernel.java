@@ -41,41 +41,55 @@ public class FoamChatKernel {
         do {
             String line = in.readLine();
 
+            chatLog.lockWait();
             if (line.equals("lsu")) {
-                chatLog.lockWait();
                 for (User a : chatLog.users) {
                     System.out.println(a.id + ":" + a.displayName);
                 }
-                chatLog.unlock();
             } else if (line.equals("lsma")) {
-                chatLog.lockWait();
                 for (Message a : chatLog.messages) {
                     System.out.println(a.to + ":" + a.from + ":" + a.message);
                 }
-                chatLog.lockWait();
             } else if (line.startsWith("getn-")) {
-                line = line.substring(4);
-                chatLog.lockWait();
+                boolean found = false;
+                line = line.substring(5);
                 for (User a : chatLog.users) {
                     if (a.id == Integer.valueOf(line)) {
                         System.out.println(a.displayName);
-                        chatLog.unlock();
-                        return;
+                        found = true;
+                        break;
                     }
                 }
-                chatLog.unlock();
-                System.out.println("NA");
+                if (!found) {
+                    System.out.println("NA");
+                }
             } else if (line.equals("lsm")) {
-                chatLog.lockWait();
                 for (Message a : chatLog.messages) {
                     if (a.to == me.id) {
                         System.out.print(a.from + ":");
                         System.out.println(encryptor.decrypt(a.message, a.keyString));
                     }
                 }
-                chatLog.unlock();
+            } else if (line.startsWith("msg")) {
+                String[] split = line.split(":");
+                int target = Integer.valueOf(split[1]);
+                Message toAdd = new Message(split[2], getUser(target), me, encryptor);
+                chatLog.addMessageNonBlocking(toAdd);
+            } else if (line.equals("exit")) {
+                System.exit(1);
             }
+            chatLog.unlock();
 
         } while (running);
+    }
+
+    //Assumes semaphore lock
+    private static User getUser(int id) {
+        for (User a : chatLog.users) {
+            if (a.id == id) {
+                return a;
+            }
+        }
+        return me;
     }
 }
