@@ -12,7 +12,7 @@ import java.util.concurrent.Semaphore;
  */
 public class ChatLog implements Serializable {
 
-    static public Semaphore mutex;
+    public Semaphore mutex;
     public List<User> users;
     public List<Message> messages;
 
@@ -46,24 +46,25 @@ public class ChatLog implements Serializable {
 
     public void mergeLog(ChatLog in) {
         in.lockWait();
-        this.lockWait();
-
+        
+        System.err.print("\t...Merge messages");
         for (Message a : in.messages) {
             if (!this.messages.contains(a)) {
                 this.messages.add(a);
             }
         }
 
+        System.err.print("\t...Merge users");
         for (User a : in.users) {
             if (!this.users.contains(a)) {
                 this.users.add(a);
             }
         }
+        
+        System.err.print("\t...unlock");
 
         in.unlock();
         LogUtilities.sortFields(this);
-
-        this.unlock();
     }
 
     public boolean lock() {
@@ -82,6 +83,7 @@ public class ChatLog implements Serializable {
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
+        System.err.println("Lock Status: " + this.mutex.availablePermits());
         while (!this.lock());
     }
 
