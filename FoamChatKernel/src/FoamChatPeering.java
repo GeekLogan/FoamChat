@@ -70,10 +70,10 @@ public class FoamChatPeering extends Thread {
 
         if (in != null && out != null) {
             try {
+                this.chatLog.lockWait();
                 ChatLog recieved = null;
                 System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
-                this.chatLog.lockWait();
                 out.writeObject(this.chatLog);
                 if (recieved != null) {
                     this.chatLog.mergeLog(recieved);
