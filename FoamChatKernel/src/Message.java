@@ -35,4 +35,8 @@ public class Message implements Serializable {
     public Date createdAt() {
         return created;
     }
+
+    boolean roughEq(Message in) {
+        return in.message.equals(this.message) && in.created.equals(this.created) && in.to == this.to && in.from == this.from;
+    }
 }
