@@ -76,13 +76,9 @@ public class ChatLog implements Serializable {
     }
 
     public boolean lock() {
-        try {
-            this.mutex.acquire();
-            System.err.println("--> Locked!");
-            return true;
-        } catch (InterruptedException ex) {
-            return false;
-        }
+        boolean didget = this.mutex.tryAcquire();
+        if(didget) System.err.println("--> Locked");
+        return didget;
     }
 
     public void unlock() {
@@ -98,5 +94,9 @@ public class ChatLog implements Serializable {
 
     void rebuildLock() {
         this.mutex = new Semaphore(1);
+    }
+    
+    boolean isLockable() {
+        return mutex.availablePermits() != 0;
     }
 }
