@@ -8,7 +8,7 @@ import java.io.*;
  * @author Logan Walker <logan.walker@me.com>
  *
  */
-public class FoamChatKernel extends Thread {
+public class FoamChatKernel {
 
     private static FoamChatServer server;
     private static FoamChatPeering peering;
@@ -30,10 +30,6 @@ public class FoamChatKernel extends Thread {
         //chatLog.addMessage( new Message("Hi", me, me, encryptor) );
         peering = new FoamChatPeering(chatLog, man);
         server = new FoamChatServer(chatLog);
-    }
-
-    public void run() {
-
     }
 
     public static void main(String[] args) throws Exception {
@@ -67,8 +63,8 @@ public class FoamChatKernel extends Thread {
                         return;
                     }
                 }
-                System.out.println("NA");
                 chatLog.unlock();
+                System.out.println("NA");
             } else if (line.equals("lsm")) {
                 chatLog.lockWait();
                 for (Message a : chatLog.messages) {
@@ -81,6 +77,5 @@ public class FoamChatKernel extends Thread {
             }
 
         } while (running);
-        kernel.start();
     }
 }
