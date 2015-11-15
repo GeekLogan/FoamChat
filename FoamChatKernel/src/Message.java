@@ -13,8 +13,10 @@ public class Message implements Serializable {
     final Date created;
     final int from, to; //user # of sender/reciever
     final boolean isEncrypted;
+    final FoamFile file;
 
-    public Message(String message_in, String key, User to, User from) {
+    public Message(String message_in, String key, User to, User from, FoamFile file) {
+        this.file = file;
         isEncrypted = (key == null);
         if (isEncrypted) {
             //encrypt
