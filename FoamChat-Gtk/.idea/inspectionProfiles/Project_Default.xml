@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="gi.repository.GObject" />
+          <option value="Xlib.display.XInitThreads" />
         </list>
       </option>
     </inspection_tool>
