@@ -1,5 +1,5 @@
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -9,8 +9,8 @@ import java.util.Comparator;
 public class LogUtilities {
 
     public static void sortFields(ChatLog in) {
-        Collections.sort(in.users, new UserComp());
-        Collections.sort(in.messages, new MessageComp());
+        Arrays.sort(in.users, new UserComp());
+        Arrays.sort(in.messages, new MessageComp());
     }
 
     private static class UserComp implements Comparator<User> {

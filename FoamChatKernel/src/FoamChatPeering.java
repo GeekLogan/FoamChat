@@ -31,7 +31,7 @@ public class FoamChatPeering extends Thread {
     public void run() {
         while (running) {
             chatLog.lock();
-            Object[] users = chatLog.users.toArray();
+            Object[] users = chatLog.users;
             chatLog.unlock();
             for (Object u1 : users) {
                 User u = (User) u1;

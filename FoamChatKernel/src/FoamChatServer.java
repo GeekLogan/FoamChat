@@ -92,7 +92,7 @@ public class FoamChatServer extends Thread {
                     //Could not recieve
                 }
             } catch (ConcurrentModificationException e) {
-                System.err.println("CON EXE-->");
+                System.err.println("KHAN!!!1");
             }
         }
 
