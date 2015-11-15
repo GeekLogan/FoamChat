@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ConcurrentModificationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Server Thread Object
@@ -47,7 +49,6 @@ public class FoamChatServer extends Thread {
                 ObjectInputStream in = new ObjectInputStream(
                         connection.getInputStream());
                 ResponderThread rs = new ResponderThread(out, in, chatLog);
-
             } catch (IOException ex) {
                 System.err.println("Can not get input connection!");
                 System.exit(402);
@@ -72,28 +73,24 @@ public class FoamChatServer extends Thread {
 
         @Override
         public void run() {
-            try {
-                try {
-                    this.chatLog.lockWait();
-                    out.writeObject(this.chatLog);
-                    this.chatLog.unlock();
-                } catch (IOException ex) {
-                    System.err.println("Failed to Write object!");
-                    //Could not send
-                }
+            this.chatLog.lockWait();
 
-                try {
-                    ChatLog chatIn = (ChatLog) this.in.readObject();
-                    chatIn.rebuildLock();
-                    chatIn.unlock();
-                    this.chatLog.mergeLog(chatIn);
-                } catch (IOException | ClassNotFoundException ex) {
-                    System.err.println("Failed to rebuild from transmission!");
-                    //Could not recieve
-                }
-            } catch (ConcurrentModificationException e) {
-                System.err.println("KHAN!!!1");
+            try {
+                out.writeObject(this.chatLog);
+            } catch (IOException ex) {
+                System.err.println("Failed to Write object!");
+                //Could not send
             }
+
+            try {
+                ChatLog chatIn = (ChatLog) this.in.readObject();
+                this.chatLog.mergeLog(chatIn);
+            } catch (IOException | ClassNotFoundException ex) {
+                System.err.println("Failed to rebuild from transmission!");
+                //Could not recieve
+            }
+
+            this.chatLog.unlock();
         }
 
     }
