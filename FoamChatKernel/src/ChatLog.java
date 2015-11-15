@@ -1,7 +1,5 @@
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -80,6 +78,7 @@ public class ChatLog implements Serializable {
     public boolean lock() {
         try {
             this.mutex.acquire();
+            System.err.println("--> Locked!");
             return true;
         } catch (InterruptedException ex) {
             return false;
@@ -88,12 +87,12 @@ public class ChatLog implements Serializable {
 
     public void unlock() {
         this.mutex.release();
+        System.err.println("--> Unlocked!");
     }
 
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
-        System.err.println("Lock Status: " + this.mutex.availablePermits());
         while (!this.lock());
     }
 
