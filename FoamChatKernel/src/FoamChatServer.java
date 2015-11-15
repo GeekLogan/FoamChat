@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ConcurrentModificationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Server Thread Object
@@ -74,11 +76,14 @@ public class FoamChatServer extends Thread {
             try {
                 try {
                     this.chatLog.lockWait();
-                    out.writeObject(this.chatLog);
+                    ChatLog outcpy = (ChatLog) this.chatLog.clone();
                     this.chatLog.unlock();
+                    out.writeObject(outcpy);
                 } catch (IOException ex) {
                     System.err.println("Failed to Write object!");
                     //Could not send
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(FoamChatServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 try {

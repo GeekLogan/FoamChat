@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
  * @editor Logan Walker <logan.walker@me.com>
  *
  */
-public class ChatLog implements Serializable {
+public class ChatLog implements Serializable, Cloneable {
 
     public Semaphore mutex;
     public User[] users;
@@ -95,6 +95,11 @@ public class ChatLog implements Serializable {
 
     void rebuildLock() {
         this.mutex = new Semaphore(1);
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
     
 }
