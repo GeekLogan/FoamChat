@@ -89,7 +89,7 @@ public class ChatLog implements Serializable {
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
-        while (!this.lock());
+        this.mutex.acquireUninterruptibly();
     }
 
     void rebuildLock() {

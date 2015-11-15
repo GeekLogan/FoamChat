@@ -47,7 +47,6 @@ public class FoamChatServer extends Thread {
                 ObjectInputStream in = new ObjectInputStream(
                         connection.getInputStream());
                 ResponderThread rs = new ResponderThread(out, in, chatLog);
-
             } catch (IOException ex) {
                 System.err.println("Can not get input connection!");
                 System.exit(402);
