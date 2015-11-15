@@ -72,7 +72,9 @@ public class FoamChatServer extends Thread {
         @Override
         public void run() {
             try {
+                System.err.println("before lock");
                 this.chatLog.lockWait();
+                System.err.println("after lock");
                 out.writeObject(this.chatLog);
                 this.chatLog.unlock();
             } catch (IOException ex) {

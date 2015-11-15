@@ -88,6 +88,7 @@ public class FoamChatPeering extends Thread {
                     recieved.unlock();
                     System.err.println("...9");
                 }
+                this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException e) {
                 System.err.println("Other Broke");
                 //Do nothing...
