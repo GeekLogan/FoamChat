@@ -9,20 +9,17 @@ import java.util.Date;
  */
 public class Message implements Serializable {
 
-    final String message;
+    final String message, keyString;
     final Date created;
     final int from, to; //user # of sender/reciever
-    final boolean isEncrypted;
     //final FoamFile file;
 
-    public Message(String message_in, String key, User to, User from, FoamFile file) {
-        isEncrypted = (key == null);
-        if (isEncrypted) {
-            //encrypt
+    public Message(String message_in, User to, User from, EncryptionMachine em) throws Exception {//, FoamFile file) {
+        String[] enc = em.encrypt(message_in, to.key);
+        
+        this.keyString = enc[0];
+        this.message = enc[1];
 
-        }
-
-        this.message = message_in;
         created = new Date();
 
         this.to = to.id;
