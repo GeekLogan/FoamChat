@@ -45,7 +45,6 @@ public class ChatLog implements Serializable {
     }
 
     public void mergeLog(ChatLog in) {
-        in.lockWait();
         
         System.err.print("\t...Merge messages");
         for (Message a : in.messages) {
@@ -63,7 +62,6 @@ public class ChatLog implements Serializable {
         
         System.err.print("\t...unlock");
 
-        in.unlock();
         LogUtilities.sortFields(this);
     }
 
