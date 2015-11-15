@@ -10,7 +10,8 @@ kernel = Popen(["java", "-jar", "FoamChatKernel.jar"], stdin=PIPE, stdout=PIPE)
 class FoamChat(Gtk.Window):
     def sendCallBack(self, widget, data=None):
         for userId in userIds:
-            kernel.stdin.write('msg:'+str(userId)+':'+data.get_text());
+            kernel.stdin.write('msg:'+str(userId)+':'+data.get_text()+'\n');
+            sleep(.75)
         data.set_text('')
 
     def __init__(self):
@@ -84,12 +85,12 @@ def updateGui():
     userGrid.set_orientation(Gtk.Orientation.VERTICAL)
     size = len(users)
     for i in range(len(userGrid.get_children()), size):
-        user = users[i]
+        user = users[len(userGrid.get_children())-i]
         buffer = Gtk.TextBuffer()
         userBuilder = Gtk.Builder()
         userBuilder.add_from_file("gridItems.glade")
         userItem = userBuilder.get_object("user")
-        buffer.set_text(user['displayName'])
+        buffer.set_text(user['displayName']+"\n"+str(user['id']))
         userIds.append(user['id'])
         userItem.set_buffer(buffer)
         userGrid.add(userItem)
