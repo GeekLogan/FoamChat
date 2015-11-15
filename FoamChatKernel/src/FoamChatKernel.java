@@ -38,36 +38,73 @@ public class FoamChatKernel {
         boolean running = true;
         FoamChatKernel kernel = new FoamChatKernel(in.readLine(), in.readLine(), in.readLine());
 
+        String useJSONs = in.readLine();
+        boolean useJSON = useJSONs.toLowerCase().startsWith("y");
+
         do {
             String line = in.readLine();
 
             chatLog.lockWait();
+            if (useJSON) {
+                System.out.print("{");
+            }
             if (line.equals("lsu")) {
+                boolean isFirst = true;
                 for (User a : chatLog.users) {
-                    System.out.println(a.id + ":" + a.displayName);
+                    if (!isFirst && useJSON) {
+                        System.out.print(",");
+                    } else {
+                        isFirst = false;
+                    }
+                    if (useJSON) {
+                        System.out.print(" \"" + a.id + "\" : \"" + a.displayName + "\"");
+                    } else {
+                        System.out.println(a.id + ":" + a.displayName);
+                    }
                 }
+
             } else if (line.equals("lsma")) {
+                boolean isFirst = true;
                 for (Message a : chatLog.messages) {
-                    System.out.println(a.to + ":" + a.from + ":" + a.message);
+                    if (!isFirst) {
+                        System.out.print(',');
+                    } else {
+                        isFirst = false;
+                    }
+                    if (useJSON) {
+                        System.out.print(" \"" + a.to + "\" : { \"" + a.from + "\", \"" + a.message + "\" }");
+                    } else {
+                        System.out.println(a.to + ":" + a.from + ":" + a.message);
+                    }
                 }
             } else if (line.startsWith("getn-")) {
                 boolean found = false;
                 line = line.substring(5);
                 for (User a : chatLog.users) {
                     if (a.id == Integer.valueOf(line)) {
-                        System.out.println(a.displayName);
+                        if (useJSON) {
+                            System.out.print(" \"" + a.displayName + "\" ");
+                        } else {
+                            System.out.println(a.displayName);
+                        }
                         found = true;
                         break;
                     }
                 }
-                if (!found) {
-                    System.out.println("NA");
+                if (!found && !useJSON) {
+                    System.out.println("\"NA\"");
                 }
             } else if (line.equals("lsm")) {
+                boolean isFirst = true;
                 for (Message a : chatLog.messages) {
                     if (a.to == me.id) {
-                        System.out.print(a.from + ":");
-                        System.out.println(encryptor.decrypt(a.message, a.keyString));
+                        if (!isFirst) {
+                            System.out.print(',');
+                        } else {
+                            isFirst = false;
+                        }
+                        System.out.print(" \"" + a.from + "\" : \"");
+                        System.out.print(encryptor.decrypt(a.message, a.keyString) + '"');
                     }
                 }
             } else if (line.startsWith("msg")) {
@@ -77,6 +114,9 @@ public class FoamChatKernel {
                 chatLog.addMessageNonBlocking(toAdd);
             } else if (line.equals("exit")) {
                 System.exit(1);
+            }
+            if (useJSON) {
+                System.out.println(" }");
             }
             chatLog.unlock();
 
