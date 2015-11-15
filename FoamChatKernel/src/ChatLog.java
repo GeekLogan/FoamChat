@@ -16,18 +16,12 @@ public class ChatLog implements Serializable, Cloneable {
 
     public ChatLog() {
         this.rebuildLock();
-        this.lockWait();
+        this.lock();
         users = new User[0];
         messages = new Message[0];
         this.unlock();
     }
 
-    public void addUser(User newName) {
-        this.lockWait();
-        addUserNonBlock(newName);
-        this.unlock();
-    }
-    
     public void addUserNonBlock(User newName) {
         User[] newArr = new User[users.length + 1];
         for (int i = 0; i < users.length; i++) {
@@ -37,48 +31,55 @@ public class ChatLog implements Serializable, Cloneable {
         users = newArr;
     }
 
-    public void addMessage(Message newMessage) {
+    public void addUser(User newName) {
         this.lockWait();
+        addUserNonBlock(newName);
+        this.unlock();
+    }
 
+    public void addMessageNonBlocking(Message newMessage) {
         Message[] newArr = new Message[messages.length + 1];
         for (int i = 0; i < messages.length; i++) {
             newArr[i] = messages[i];
         }
         newArr[messages.length] = newMessage;
         messages = newArr;
+    }
 
+    public void addMessage(Message newMessage) {
+        this.lockWait();
+        addMessageNonBlocking(newMessage);
         this.unlock();
     }
 
     public void mergeLog(ChatLog in) {
-
-        System.err.println("\t...Merge messages");
-        for ( int j = 0; j < in.messages.length; j++ ) {
+        for (int j = 0; j < in.messages.length; j++) {
             boolean isIn = false;
-            for( int i = 0; i < this.messages.length && !isIn; i++ ) {
-                if(this.messages[i].equals(in.messages[j])) isIn = true;
+            for (int i = 0; i < this.messages.length && !isIn; i++) {
+                if (this.messages[i].equals(in.messages[j])) {
+                    isIn = true;
+                }
             }
-            if( !isIn ) {
-                this.addMessage(in.messages[j]);
+            if (!isIn) {
+                this.addMessageNonBlocking(in.messages[j]);
             }
         }
 
-        System.err.println("\t...Merge users");
-        for ( int j = 0; j < in.users.length; j++ ) {
+        for (int j = 0; j < in.users.length; j++) {
             boolean isIn = false;
-            for( int i = 0; i < this.users.length && !isIn; i++ ) {
-                if(this.users[i].equals(in.users[j])) isIn = true;
+            for (int i = 0; i < this.users.length && !isIn; i++) {
+                if (this.users[i].equals(in.users[j])) {
+                    isIn = true;
+                }
             }
-            if( !isIn ) {
+            if (!isIn) {
                 this.addUserNonBlock(in.users[j]);
             }
         }
 
-        System.err.println("\t...sort");
-
         LogUtilities.sortFields(this);
-        
-        System.err.println("\t...done");
+        LogUtilities.statLog(this);
+
     }
 
     public boolean lock() {
@@ -90,8 +91,6 @@ public class ChatLog implements Serializable, Cloneable {
         this.mutex.release();
     }
 
-    @SuppressWarnings("empty-statement")
-    //@TODO rewite using events
     void lockWait() {
         this.mutex.acquireUninterruptibly();
     }
@@ -99,10 +98,5 @@ public class ChatLog implements Serializable, Cloneable {
     void rebuildLock() {
         this.mutex = new Semaphore(1);
     }
-    
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-    
+
 }

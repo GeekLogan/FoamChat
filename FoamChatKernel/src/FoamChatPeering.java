@@ -81,7 +81,6 @@ public class FoamChatPeering extends Thread {
                 this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException e) {
                 System.err.println("Peer-processing Broke");
-                //Do nothing...
             }
         }
         LogUtilities.sortFields(this.chatLog);
