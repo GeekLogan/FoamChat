@@ -9,8 +9,10 @@ import java.util.Comparator;
 public class LogUtilities {
 
     public static void sortFields(ChatLog in) {
+        in.lockWait();
         Arrays.sort(in.users, new UserComp());
         Arrays.sort(in.messages, new MessageComp());
+        in.unlock();
     }
 
     private static class UserComp implements Comparator<User> {

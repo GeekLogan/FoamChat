@@ -76,10 +76,7 @@ public class FoamChatPeering extends Thread {
                 recieved = (ChatLog) in.readObject();
                 out.writeObject(this.chatLog);
                 if (recieved != null) {
-                    recieved.rebuildLock();
-                    recieved.lockWait();
                     this.chatLog.mergeLog(recieved);
-                    recieved.unlock();
                 }
                 this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException e) {

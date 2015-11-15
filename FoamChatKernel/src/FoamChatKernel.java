@@ -13,13 +13,13 @@ public class FoamChatKernel extends Thread {
     FoamChatPeering peering;
 
     public FoamChatKernel() {
-
         ChatLog chatLog = new ChatLog();
         List<String> man = new ArrayList<>();
         man.add("25.16.95.241");
 
         User me = new User( null, "Logan", IPTools.getHomeNodes() );
         chatLog.addUser(me);
+        
         peering = new FoamChatPeering(chatLog, man);
         server = new FoamChatServer(chatLog);
     }
