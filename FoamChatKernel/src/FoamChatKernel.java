@@ -89,11 +89,7 @@ public class FoamChatKernel {
                 line = line.substring(5);
                 for (User a : chatLog.users) {
                     if (a.id == Integer.valueOf(line)) {
-                        if (useJSON) {
-                            System.out.print(" \"" + a.displayName + "\" ");
-                        } else {
-                            System.out.println(a.displayName);
-                        }
+                        System.out.println(a.displayName);
                         found = true;
                         break;
                     }
@@ -117,13 +113,13 @@ public class FoamChatKernel {
                     }
                 }else {
                     JSONArray jsonArray = new JSONArray();
-                    for(Message msg : chatLog.messages){
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("from",msg.from);
-                        jsonObject.put("text",encryptor.decrypt(msg.message,msg.keyString));
-                        jsonArray.put(jsonObject);
-                    }
-                    System.out.println(jsonArray.toString());
+                        for (Message msg : chatLog.messages) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("from", msg.from);
+                            jsonObject.put("text", encryptor.decrypt(msg.message, msg.keyString));
+                            jsonArray.put(jsonObject);
+                        }
+                        System.out.println(jsonArray.toString());
                 }
             } else if (line.startsWith("msg")) {
                 String[] split = line.split(":");
