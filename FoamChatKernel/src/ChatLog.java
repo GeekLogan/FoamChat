@@ -1,7 +1,6 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
@@ -25,7 +24,7 @@ public class ChatLog implements Serializable {
         this.unlock();
     }
 
-    public void addLoginName(User newName) {
+    public void addUser(User newName) {
         this.lockWait();
         users.add(newName);
         this.unlock();
@@ -37,7 +36,7 @@ public class ChatLog implements Serializable {
         this.unlock();
     }
 
-    public void removeName(User name) {
+    public void removeUser(User name) {
         this.lockWait();
         if (users.contains(name)) {
             users.remove(users.indexOf(name));

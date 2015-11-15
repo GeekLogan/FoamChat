@@ -14,11 +14,11 @@ public class User {
     public final int id;
     public final String[] addrs;
 
-    public User(PublicKey key_in, String display_name, List<String> addrs_list) {
+    public User(PublicKey key_in, String display_name, String[] addrs_list) {
         key = key_in;
         displayName = display_name;
         id = idInitializer();
-        addrs = (String[]) addrs_list.toArray();
+        addrs = addrs_list;
     }
 
     // this initializes the random id
