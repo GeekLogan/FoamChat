@@ -90,13 +90,11 @@ public class ChatLog implements Serializable {
     //@TODO rewite using events
     void lockWait() {
         this.mutex.acquireUninterruptibly();
+        System.err.println("--> Locked!");
     }
 
     void rebuildLock() {
         this.mutex = new Semaphore(1);
     }
     
-    boolean isLockable() {
-        return mutex.availablePermits() != 0;
-    }
 }
