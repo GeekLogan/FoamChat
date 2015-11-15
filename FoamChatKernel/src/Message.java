@@ -13,7 +13,7 @@ public class Message implements Serializable {
     final Date created;
     final int from, to; //user # of sender/reciever
     final boolean isEncrypted;
-    final FoamFile file;
+    //final FoamFile file;
 
     public Message(String message_in, String key, User to, User from, FoamFile file) {
         isEncrypted = (key == null);
@@ -27,9 +27,8 @@ public class Message implements Serializable {
 
         this.to = to.id;
         this.from = from.id;
-        FileServer fileServer = new FileServer();
-        this.file = file;
-        this.file.ip = from.addrs;
+        //this.file = file;
+        //this.file.ip = from.addrs;
     }
 
     public Date createdAt() {
