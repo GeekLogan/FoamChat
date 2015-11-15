@@ -7,7 +7,7 @@ import java.net.Socket;
 public class FileClient {
     private static final String ip = "25.16.95.241";
     private static final int port = 3248;
-    private static final String out = "<Output Path>";
+    private static final String out = "/Users/logan/Desktop/file.mkv";
 
     public static void main(String[] args){
         byte[] aByte = new byte[1];
@@ -44,7 +44,7 @@ public class FileClient {
                 bufferedOutputStream.close();
                 socket.close();
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }
         }
     }
