@@ -115,7 +115,8 @@ public class FoamChatKernel {
                     JSONArray jsonArray = new JSONArray();
                         for (Message msg : chatLog.messages) {
                             JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("from", msg.from);
+                            jsonObject.put("id", msg.from);
+                            jsonObject.put("name",getUser(msg.from));
                             jsonObject.put("text", encryptor.decrypt(msg.message, msg.keyString));
                             jsonArray.put(jsonObject);
                         }

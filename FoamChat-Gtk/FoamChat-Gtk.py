@@ -4,9 +4,12 @@ from time import sleep
 import json
 
 
+
 class FoamChat(Gtk.Window):
     def sendCallBack(self, widget, data=None):
-        kernel.stdin.write();
+        for id in userIds:
+            kernel.stdin.write('msg:'+str(id)+':'+data.get_text());
+        data.set_text('')
 
     def __init__(self):
         Gtk.Window.__init__(self, title="FoamChat")
@@ -24,12 +27,15 @@ class FoamChat(Gtk.Window):
         self.add(pane)
         connect()
         self.show_all()
-        update()
 
 
 userGrid = Gtk.Grid()
+users = None
+messages = None
+userIds = []
 messageGrid = Gtk.Grid()
 kernel = Popen(["java", "-jar", "FoamChatKernel.jar"], stdin=PIPE, stdout=PIPE)
+
 
 
 def connect():
@@ -39,12 +45,21 @@ def connect():
     kernel.stdin.write('Y\n')
     sleep(2)
 
-
+def quit():
+    kernel.stdin.write('exit')
+    Gtk.main_quit()
 def update():
     kernel.stdin.write('lsu\n')
     raw = kernel.stdout.readline()
     print raw
     users = json.loads(raw)
+    kernel.stdin.write('lsm\n')
+    sleep(2)
+    raw = kernel.stdout.readline();
+    print raw
+    messages = json.loads(raw)
+def updateGui():
+
     userGrid.set_row_spacing(2)
     userGrid.set_orientation(Gtk.Orientation.VERTICAL)
     for user in users:
@@ -53,15 +68,12 @@ def update():
         userBuilder.add_from_file("gridItems.glade")
         userItem = userBuilder.get_object("user")
         buffer.set_text(user['displayName'])
+        userIds.append(user['id'])
         userItem.set_buffer(buffer)
         userGrid.add(userItem)
     messageGrid.set_row_spacing(2)
     messageGrid.set_orientation(Gtk.Orientation.VERTICAL)
-    kernel.stdin.write('lsm\n')
-    sleep(2)
-    raw = kernel.stdout.readline();
-    print raw
-    messages = json.loads(raw)
+
     for message in messages:
         buffer = Gtk.TextBuffer()
         msgBuilder = Gtk.Builder()
@@ -72,9 +84,10 @@ def update():
         buffer.set_text(name + ": " +message['text'])
         msg.set_buffer(buffer)
         messageGrid.add(msg)
-
+    return True
 
 win = FoamChat()
-win.connect("delete-event", Gtk.main_quit)
+win.connect("delete-event", quit)
+GObject.timeout_add(1000, update)
 Gtk.main()
-kernel.stdin.write('exit\n')
+
