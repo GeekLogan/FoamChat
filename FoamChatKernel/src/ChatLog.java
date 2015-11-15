@@ -65,7 +65,6 @@ public class ChatLog implements Serializable, Cloneable {
 
         System.err.println("\t...Merge users");
         for ( int j = 0; j < in.users.length; j++ ) {
-            System.err.println("-" + j);
             boolean isIn = false;
             for( int i = 0; i < this.users.length && !isIn; i++ ) {
                 if(this.users[i].equals(in.users[j])) isIn = true;
@@ -75,9 +74,11 @@ public class ChatLog implements Serializable, Cloneable {
             }
         }
 
-        System.err.println("\t...unlock");
+        System.err.println("\t...sort");
 
         LogUtilities.sortFields(this);
+        
+        System.err.println("\t...done");
     }
 
     public boolean lock() {

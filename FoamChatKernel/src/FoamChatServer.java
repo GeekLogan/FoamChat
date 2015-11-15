@@ -83,13 +83,14 @@ public class FoamChatServer extends Thread {
                     System.err.println("Failed to Write object!");
                     //Could not send
                 } catch (CloneNotSupportedException ex) {
-                    Logger.getLogger(FoamChatServer.class.getName()).log(Level.SEVERE, null, ex);
+                    //nothing
                 }
 
                 try {
                     ChatLog chatIn = (ChatLog) this.in.readObject();
-                    chatIn.rebuildLock();
+                    this.chatLog.lockWait();
                     this.chatLog.mergeLog(chatIn);
+                    this.chatLog.unlock();
                 } catch (IOException | ClassNotFoundException ex) {
                     System.err.println("Failed to rebuild from transmission!");
                     //Could not recieve
