@@ -1,0 +1,415 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		024B0C631BF87A23000C96D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B0C621BF87A23000C96D4 /* AppDelegate.swift */; };
+		024B0C651BF87A23000C96D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B0C641BF87A23000C96D4 /* ViewController.swift */; };
+		024B0C671BF87A23000C96D4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024B0C661BF87A23000C96D4 /* Images.xcassets */; };
+		024B0C6A1BF87A23000C96D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024B0C681BF87A23000C96D4 /* Main.storyboard */; };
+		024B0C761BF87A23000C96D4 /* FoamChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B0C751BF87A23000C96D4 /* FoamChatTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		024B0C701BF87A23000C96D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 024B0C551BF87A23000C96D4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 024B0C5C1BF87A23000C96D4;
+			remoteInfo = FoamChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		024B0C5D1BF87A23000C96D4 /* FoamChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoamChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		024B0C611BF87A23000C96D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		024B0C621BF87A23000C96D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		024B0C641BF87A23000C96D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		024B0C661BF87A23000C96D4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		024B0C691BF87A23000C96D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		024B0C6F1BF87A23000C96D4 /* FoamChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoamChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		024B0C741BF87A23000C96D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		024B0C751BF87A23000C96D4 /* FoamChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoamChatTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		024B0C5A1BF87A23000C96D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		024B0C6C1BF87A23000C96D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		024B0C541BF87A23000C96D4 = {
+			isa = PBXGroup;
+			children = (
+				024B0C5F1BF87A23000C96D4 /* FoamChat */,
+				024B0C721BF87A23000C96D4 /* FoamChatTests */,
+				024B0C5E1BF87A23000C96D4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		024B0C5E1BF87A23000C96D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				024B0C5D1BF87A23000C96D4 /* FoamChat.app */,
+				024B0C6F1BF87A23000C96D4 /* FoamChatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		024B0C5F1BF87A23000C96D4 /* FoamChat */ = {
+			isa = PBXGroup;
+			children = (
+				024B0C621BF87A23000C96D4 /* AppDelegate.swift */,
+				024B0C641BF87A23000C96D4 /* ViewController.swift */,
+				024B0C661BF87A23000C96D4 /* Images.xcassets */,
+				024B0C681BF87A23000C96D4 /* Main.storyboard */,
+				024B0C601BF87A23000C96D4 /* Supporting Files */,
+			);
+			path = FoamChat;
+			sourceTree = "<group>";
+		};
+		024B0C601BF87A23000C96D4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				024B0C611BF87A23000C96D4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		024B0C721BF87A23000C96D4 /* FoamChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				024B0C751BF87A23000C96D4 /* FoamChatTests.swift */,
+				024B0C731BF87A23000C96D4 /* Supporting Files */,
+			);
+			path = FoamChatTests;
+			sourceTree = "<group>";
+		};
+		024B0C731BF87A23000C96D4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				024B0C741BF87A23000C96D4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		024B0C5C1BF87A23000C96D4 /* FoamChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 024B0C791BF87A23000C96D4 /* Build configuration list for PBXNativeTarget "FoamChat" */;
+			buildPhases = (
+				024B0C591BF87A23000C96D4 /* Sources */,
+				024B0C5A1BF87A23000C96D4 /* Frameworks */,
+				024B0C5B1BF87A23000C96D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoamChat;
+			productName = FoamChat;
+			productReference = 024B0C5D1BF87A23000C96D4 /* FoamChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		024B0C6E1BF87A23000C96D4 /* FoamChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 024B0C7C1BF87A23000C96D4 /* Build configuration list for PBXNativeTarget "FoamChatTests" */;
+			buildPhases = (
+				024B0C6B1BF87A23000C96D4 /* Sources */,
+				024B0C6C1BF87A23000C96D4 /* Frameworks */,
+				024B0C6D1BF87A23000C96D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				024B0C711BF87A23000C96D4 /* PBXTargetDependency */,
+			);
+			name = FoamChatTests;
+			productName = FoamChatTests;
+			productReference = 024B0C6F1BF87A23000C96D4 /* FoamChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		024B0C551BF87A23000C96D4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = FoamChatDevelopers;
+				TargetAttributes = {
+					024B0C5C1BF87A23000C96D4 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					024B0C6E1BF87A23000C96D4 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 024B0C5C1BF87A23000C96D4;
+					};
+				};
+			};
+			buildConfigurationList = 024B0C581BF87A23000C96D4 /* Build configuration list for PBXProject "FoamChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 024B0C541BF87A23000C96D4;
+			productRefGroup = 024B0C5E1BF87A23000C96D4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				024B0C5C1BF87A23000C96D4 /* FoamChat */,
+				024B0C6E1BF87A23000C96D4 /* FoamChatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		024B0C5B1BF87A23000C96D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				024B0C671BF87A23000C96D4 /* Images.xcassets in Resources */,
+				024B0C6A1BF87A23000C96D4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		024B0C6D1BF87A23000C96D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		024B0C591BF87A23000C96D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				024B0C651BF87A23000C96D4 /* ViewController.swift in Sources */,
+				024B0C631BF87A23000C96D4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		024B0C6B1BF87A23000C96D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				024B0C761BF87A23000C96D4 /* FoamChatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		024B0C711BF87A23000C96D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 024B0C5C1BF87A23000C96D4 /* FoamChat */;
+			targetProxy = 024B0C701BF87A23000C96D4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		024B0C681BF87A23000C96D4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				024B0C691BF87A23000C96D4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		024B0C771BF87A23000C96D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		024B0C781BF87A23000C96D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		024B0C7A1BF87A23000C96D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = FoamChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		024B0C7B1BF87A23000C96D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = FoamChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		024B0C7D1BF87A23000C96D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FoamChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoamChat.app/Contents/MacOS/FoamChat";
+			};
+			name = Debug;
+		};
+		024B0C7E1BF87A23000C96D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FoamChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoamChat.app/Contents/MacOS/FoamChat";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		024B0C581BF87A23000C96D4 /* Build configuration list for PBXProject "FoamChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				024B0C771BF87A23000C96D4 /* Debug */,
+				024B0C781BF87A23000C96D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		024B0C791BF87A23000C96D4 /* Build configuration list for PBXNativeTarget "FoamChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				024B0C7A1BF87A23000C96D4 /* Debug */,
+				024B0C7B1BF87A23000C96D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		024B0C7C1BF87A23000C96D4 /* Build configuration list for PBXNativeTarget "FoamChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				024B0C7D1BF87A23000C96D4 /* Debug */,
+				024B0C7E1BF87A23000C96D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 024B0C551BF87A23000C96D4 /* Project object */;
+}
