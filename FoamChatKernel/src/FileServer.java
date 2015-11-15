@@ -43,13 +43,13 @@ public class FileServer {
 
             }
             if(toClient != null){
-                File file = new File("/home/chris/FUC.mp3");
+                File file = new File("/home/chris/Downloads/OP1.mkv");
                 byte[] fileBytes = new byte[(int)file.length()];
                 FileInputStream fileInputStream = null;
                 try{
                     fileInputStream = new FileInputStream(file);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
                 try{
@@ -59,7 +59,7 @@ public class FileServer {
                     toClient.close();
                     socket.close();
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
             }
         }
