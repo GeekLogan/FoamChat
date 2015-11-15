@@ -23,7 +23,7 @@ public class FileClient {
 
         }
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         if (inputStream != null) {
 
@@ -35,11 +35,11 @@ public class FileClient {
                 bytesRead = inputStream.read(aByte, 0, aByte.length);
 
                 do {
-                    byteArrayOutputStream.write(aByte);
+                    bufferedOutputStream.write(aByte);
                     bytesRead = inputStream.read(aByte);
                 } while (bytesRead != -1);
 
-                bufferedOutputStream.write(byteArrayOutputStream.toByteArray());
+                //bufferedOutputStream.write(byteArrayOutputStream.toByteArray());
                 bufferedOutputStream.flush();
                 bufferedOutputStream.close();
                 socket.close();
