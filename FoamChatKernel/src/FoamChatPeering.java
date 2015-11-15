@@ -14,8 +14,10 @@ public class FoamChatPeering extends Thread {
 
     private final ChatLog chatLog;
     private boolean running;
+    private List<String> manualIPs;
 
-    public FoamChatPeering(ChatLog cl) {
+    public FoamChatPeering(ChatLog cl, List<String> man) {
+        manualIPs = man;
         chatLog = cl;
         running = true;
         this.start();
@@ -28,6 +30,9 @@ public class FoamChatPeering extends Thread {
             chatLog.unlock();
             for (User u : users) {
                 for (String ip : u.addrs) {
+                    tryConnect(ip);
+                }
+                for (String ip : manualIPs) {
                     tryConnect(ip);
                 }
             }
@@ -61,6 +66,7 @@ public class FoamChatPeering extends Thread {
                 recieved.unlock();
             }
         } catch (IOException | ClassNotFoundException e) {
+            //Do nothing...
         }
         LogUtilities.sortFields(this.chatLog);
     }

@@ -18,15 +18,13 @@ public class FoamChatServer extends Thread {
     public static final int port = 4242;
     public boolean running;
 
-    private List<NodeReference> nodes;
     private final List<NodeReference> homeNodes;
     private final ChatLog chatLog;
 
     private ServerSocket serverSocket;
 
-    public FoamChatServer(List<NodeReference> nodes_in, ChatLog cl) {
+    public FoamChatServer( ChatLog cl) {
         this.chatLog = cl;
-        nodes = nodes_in;
         homeNodes = new ArrayList<>();
 
         try {
