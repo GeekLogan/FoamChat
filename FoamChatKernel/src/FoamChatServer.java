@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ConcurrentModificationException;
 
 /**
  * Server Thread Object
@@ -22,7 +23,7 @@ public class FoamChatServer extends Thread {
 
     public FoamChatServer(ChatLog cl) {
         this.chatLog = cl;
-        
+
         homeNodes = IPTools.getHomeNodes();
 
         try {
@@ -72,26 +73,28 @@ public class FoamChatServer extends Thread {
         @Override
         public void run() {
             try {
-                System.err.println("before lock");
-                this.chatLog.lockWait();
-                System.err.println("after lock");
-                out.writeObject(this.chatLog);
-                this.chatLog.unlock();
-            } catch (IOException ex) {
-                System.err.println("Failed to Write object!");
-                //Could not send
-            }
+                try {
+                    this.chatLog.lockWait();
+                    out.writeObject(this.chatLog);
+                    this.chatLog.unlock();
+                } catch (IOException ex) {
+                    System.err.println("Failed to Write object!");
+                    //Could not send
+                }
 
-            try {
-                ChatLog chatIn = (ChatLog) this.in.readObject();
-                chatIn.rebuildLock();
-                chatIn.unlock();
-                this.chatLog.mergeLog(chatIn);
-            } catch (IOException | ClassNotFoundException ex) {
-                System.err.println("AHHHH!");
-                //Could not recieve
+                try {
+                    ChatLog chatIn = (ChatLog) this.in.readObject();
+                    chatIn.rebuildLock();
+                    chatIn.unlock();
+                    this.chatLog.mergeLog(chatIn);
+                } catch (IOException | ClassNotFoundException ex) {
+                    System.err.println("Failed to rebuild from transmission!");
+                    //Could not recieve
+                }
+            } catch (ConcurrentModificationException e) {
+                System.err.println("CON EXE-->");
             }
-
         }
+
     }
 }

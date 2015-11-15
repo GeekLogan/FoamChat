@@ -68,29 +68,20 @@ public class FoamChatPeering extends Thread {
 
         if (in != null && out != null) {
             try {
-                System.err.println("Before");
                 this.chatLog.lockWait();
-                System.err.println("...1");
                 ChatLog recieved = null;
-                System.err.println("...2 (read Object)");
+                System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
-                System.err.println("...3");
                 out.writeObject(this.chatLog);
-                System.err.println("...4");
                 if (recieved != null) {
-                    System.err.println("...5");
                     recieved.rebuildLock();
-                    System.err.println("...6");
                     recieved.lockWait();
-                    System.err.println("...7");
                     this.chatLog.mergeLog(recieved);
-                    System.err.println("...8");
                     recieved.unlock();
-                    System.err.println("...9");
                 }
                 this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Other Broke");
+                System.err.println("Peer-processing Broke");
                 //Do nothing...
             }
         }

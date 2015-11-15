@@ -46,21 +46,21 @@ public class ChatLog implements Serializable {
 
     public void mergeLog(ChatLog in) {
         
-        System.err.print("\t...Merge messages");
+        System.err.println("\t...Merge messages");
         for (Message a : in.messages) {
             if (!this.messages.contains(a)) {
                 this.messages.add(a);
             }
         }
 
-        System.err.print("\t...Merge users");
+        System.err.println("\t...Merge users");
         for (User a : in.users) {
             if (!this.users.contains(a)) {
                 this.users.add(a);
             }
         }
         
-        System.err.print("\t...unlock");
+        System.err.println("\t...unlock");
 
         LogUtilities.sortFields(this);
     }
