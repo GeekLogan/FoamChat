@@ -69,8 +69,9 @@ public class FoamChatPeering extends Thread {
         }
 
         if (in != null && out != null) {
+            this.chatLog.lockWait();
             try {
-                this.chatLog.lockWait();
+                
                 ChatLog recieved = null;
                 System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
@@ -78,11 +79,11 @@ public class FoamChatPeering extends Thread {
                 if (recieved != null) {
                     this.chatLog.mergeLog(recieved);
                 }
-                this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException e) {
                 System.err.println("Peer-processing Broke");
             }
+            LogUtilities.sortFields(this.chatLog);
+            this.chatLog.unlock();
         }
-        LogUtilities.sortFields(this.chatLog);
     }
 }
