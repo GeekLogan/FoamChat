@@ -24,13 +24,17 @@ public class ChatLog implements Serializable, Cloneable {
 
     public void addUser(User newName) {
         this.lockWait();
+        addUserNonBlock(newName);
+        this.unlock();
+    }
+    
+    public void addUserNonBlock(User newName) {
         User[] newArr = new User[users.length + 1];
         for (int i = 0; i < users.length; i++) {
             newArr[i] = users[i];
         }
         newArr[users.length] = newName;
         users = newArr;
-        this.unlock();
     }
 
     public void addMessage(Message newMessage) {
@@ -61,12 +65,13 @@ public class ChatLog implements Serializable, Cloneable {
 
         System.err.println("\t...Merge users");
         for ( int j = 0; j < in.users.length; j++ ) {
+            System.err.println("-" + j);
             boolean isIn = false;
             for( int i = 0; i < this.users.length && !isIn; i++ ) {
                 if(this.users[i].equals(in.users[j])) isIn = true;
             }
             if( !isIn ) {
-                this.addUser(in.users[j]);
+                this.addUserNonBlock(in.users[j]);
             }
         }
 
