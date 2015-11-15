@@ -9,7 +9,7 @@ import java.util.concurrent.Semaphore;
  *
  * @author Robert McKay <mckay.130@osu.edu>
  * @editor Logan Walker <logan.walker@me.com>
- * 
+ *
  */
 public class ChatLog implements Serializable {
 
@@ -40,30 +40,30 @@ public class ChatLog implements Serializable {
     public void removeName(User name) {
         this.lockWait();
         if (users.contains(name)) {
-            users.remove( users.indexOf(name) );
+            users.remove(users.indexOf(name));
         }
         this.unlock();
     }
-    
-    public void mergeLog( ChatLog in ) {
+
+    public void mergeLog(ChatLog in) {
         in.lockWait();
         this.lockWait();
-        
-        for( Message a : in.messages ) {
-            if( !this.messages.contains( a ) ) {
-                this.messages.add( a );
+
+        for (Message a : in.messages) {
+            if (!this.messages.contains(a)) {
+                this.messages.add(a);
             }
         }
-        
-        for( User a : in.users ) {
-            if( !this.users.contains( a ) ) {
-                this.users.add( a );
+
+        for (User a : in.users) {
+            if (!this.users.contains(a)) {
+                this.users.add(a);
             }
         }
-        
+
         in.unlock();
         LogUtilities.sortFields(this);
-        
+
         this.unlock();
     }
 
@@ -83,7 +83,7 @@ public class ChatLog implements Serializable {
     @SuppressWarnings("empty-statement")
     //@TODO rewite using events
     void lockWait() {
-        while( !this.lock() );
+        while (!this.lock());
     }
 
     void rebuildLock() {

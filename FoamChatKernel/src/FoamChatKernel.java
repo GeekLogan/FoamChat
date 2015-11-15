@@ -8,35 +8,24 @@ import java.util.List;
  * @author Logan Walker <logan.walker@me.com>
  *
  */
-public class FoamChatKernel extends Thread{
+public class FoamChatKernel extends Thread {
 
-    List<NodeReference> nodes;
     FoamChatServer server;
+    FoamChatPeering peering;
 
-    public FoamChatKernel(){
+    public FoamChatKernel() {
 
         ChatLog chatLog = new ChatLog();
-        nodes = new ArrayList<>();
-        try {
-            for (String ip : IPTools.getCurrentIP()) {
-                nodes.add(new NodeReference(ip));
-            }
-        } catch (SocketException ex) {
-            System.err.println("No IP Interfaces Found!");
-            System.exit(404);
-        }
+        List<String> man = new ArrayList<>();
+        man.add("25.16.95.241");
 
-        if (nodes.isEmpty()) {
-            System.err.println("No IP Interfaces Found!");
-            System.exit(404);
-        }
-        
-        server = new FoamChatServer( nodes, chatLog );
-        
+        peering = new FoamChatPeering(chatLog, man);
+        server = new FoamChatServer(chatLog);
+
     }
-    
+
     public void run() {
-        
+
     }
 
     public static void main(String[] args) {

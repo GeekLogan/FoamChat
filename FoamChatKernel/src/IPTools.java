@@ -1,3 +1,4 @@
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -17,29 +18,29 @@ public class IPTools {
     public static List<String> getCurrentIP() throws SocketException {
         ArrayList<String> out = new ArrayList<String>();
         Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-        while( interfaces.hasMoreElements() ) {
+        while (interfaces.hasMoreElements()) {
             NetworkInterface current = interfaces.nextElement();
             Enumeration<InetAddress> addrs = current.getInetAddresses();
-            while( addrs.hasMoreElements() ) {
+            while (addrs.hasMoreElements()) {
                 InetAddress addr = addrs.nextElement();
-                if( !addr.isLoopbackAddress() ) { //Filter Loopbacks
-                    if( !addr.getHostAddress().contains(":") ) { //Filter IPV6
+                if (!addr.isLoopbackAddress()) { //Filter Loopbacks
+                    if (!addr.getHostAddress().contains(":")) { //Filter IPV6
                         out.add(addr.getHostAddress());
                     }
                 }
-                
+
             }
         }
-        
+
         return out;
     }
 
     /**
-     * 
-     * MAIN method:
-     *      Runs simple sanity check of the currently implemented methods
-     * 
-     * @param args -> arguments from cmd line 
+     *
+     * MAIN method: Runs simple sanity check of the currently implemented
+     * methods
+     *
+     * @param args -> arguments from cmd line
      */
     public static void main(String[] args) {
         try {
