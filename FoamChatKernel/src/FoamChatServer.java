@@ -4,9 +4,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Server Thread Object
@@ -68,6 +65,7 @@ public class FoamChatServer extends Thread {
             this.in = in;
             this.chatLog = cl;
 
+            System.err.println("Responding to request!");
             this.start();
         }
 
@@ -78,6 +76,7 @@ public class FoamChatServer extends Thread {
                 out.writeObject(this.chatLog);
                 this.chatLog.unlock();
             } catch (IOException ex) {
+                System.err.println("Failed to Write object!");
                 //Could not send
             }
 
@@ -87,6 +86,7 @@ public class FoamChatServer extends Thread {
                 chatIn.unlock();
                 this.chatLog.mergeLog(chatIn);
             } catch (IOException | ClassNotFoundException ex) {
+                System.err.println("AHHHH!");
                 //Could not recieve
             }
 
