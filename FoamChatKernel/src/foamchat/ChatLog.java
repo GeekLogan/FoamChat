@@ -93,7 +93,7 @@ public class ChatLog implements Serializable, Cloneable {
         this.mutex.release();
     }
 
-    void lockWait() {
+    public void lockWait() {
         this.mutex.acquireUninterruptibly();
     }
 
