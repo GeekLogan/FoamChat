@@ -17,12 +17,16 @@ public class FileClient {
     public void saveFile(FoamFile foamFile, String out, Cipher cipher) throws InvalidKeyException {
         Socket socket = null;
         InputStream inputStream = null;
-
-        try {
-            socket = new Socket(foamFile.ip[0], foamFile.port);
-            inputStream = socket.getInputStream();
-        } catch (Exception e) {
-            e.printStackTrace();
+        boolean found = false;
+        int i = 0;
+        while(!found){
+            try {
+                socket = new Socket(foamFile.ip[i], foamFile.port);
+                inputStream = socket.getInputStream();
+                found = true;
+            } catch (Exception e) {
+                i++;
+            }
         }
 
         if (inputStream != null) {
@@ -31,7 +35,6 @@ public class FileClient {
                 CipherInputStream cipherInputStream = new CipherInputStream(inputStream,cipher);
                 fos = new FileOutputStream(out);
                 byte[] fileBytes = new byte[1024];
-                int i = 0;
                 while((i = cipherInputStream.read(fileBytes)) > -1){
                     fos.write(fileBytes,0,i);
                 }
