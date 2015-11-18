@@ -27,8 +27,8 @@ public class EncryptionMachine {
     public static String filename;
 
     public EncryptionMachine(String fileName) throws Exception {
-        this.keyCipher = Cipher.getInstance("RSA");
-        this.aesCipher = Cipher.getInstance("AES");
+        this.keyCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        this.aesCipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         EncryptionMachine.filename = fileName;
         if (!(new File(fileName + pubExt + ext).exists() && new File(fileName + privExt + ext).exists())) {
             this.keyPair = generateKeyPair(fileName);
@@ -39,7 +39,7 @@ public class EncryptionMachine {
 
     public SecretKey makeKey() throws Exception {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        //keyGenerator.init(256);
+        keyGenerator.init(128);
         return keyGenerator.generateKey();
     }
 
