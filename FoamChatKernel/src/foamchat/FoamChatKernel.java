@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class FoamChatKernel {
 
-    private static FoamChatServer server;
-    private static FoamChatPeering peering;
-    private static User me;
-    private static EncryptionMachine encryptor;
-    private static ChatLog chatLog;
+    public static FoamChatServer server;
+    public static FoamChatPeering peering;
+    public static User me;
+    public static EncryptionMachine encryptor;
+    public static ChatLog chatLog;
 
     public FoamChatKernel(String fn, String user, String bootip) throws Exception {
         chatLog = new ChatLog();
@@ -114,7 +114,7 @@ public class FoamChatKernel {
     }
 
     //Assumes semaphore lock
-    private static User getUser(int id) {
+    public static User getUser(int id) {
         for (User a : chatLog.users) {
             if (a.id == id) {
                 return a;
