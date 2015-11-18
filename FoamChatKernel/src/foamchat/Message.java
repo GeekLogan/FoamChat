@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class Message implements Serializable {
 
-    final String message, keyString;
-    final Date created;
-    final int from, to; //user # of sender/reciever
+    public final String message, keyString;
+    public final Date created;
+    public final int from, to; //user # of sender/reciever
     //final FoamFile file;
 
     public Message(String message_in, User to, User from, EncryptionMachine em) throws Exception {//, foamchat.FoamFile file) {
