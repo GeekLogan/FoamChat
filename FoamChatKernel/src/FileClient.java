@@ -1,8 +1,7 @@
-
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
-import javax.crypto.SecretKey;
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.Socket;
 import java.security.InvalidKeyException;
 
@@ -11,38 +10,33 @@ import java.security.InvalidKeyException;
  */
 public class FileClient {
 
-    public FileClient() {
-        //Do Nothing
+    public FileClient(FoamFile foamFile, String out, Cipher cipher) throws InvalidKeyException {
+        this.saveFile(foamFile,out,cipher);
     }
 
     public void saveFile(FoamFile foamFile, String out, Cipher cipher) throws InvalidKeyException {
-        byte[] aByte = new byte[1];
-        int bytesRead;
         Socket socket = null;
-        CipherInputStream cipherInputStream = null;
+        InputStream inputStream = null;
 
         try {
             socket = new Socket(foamFile.ip[0], foamFile.port);
-            cipherInputStream = new CipherInputStream(socket.getInputStream(), cipher);
+            inputStream = socket.getInputStream();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (cipherInputStream != null) {
-
+        if (inputStream != null) {
             FileOutputStream fos = null;
-            BufferedOutputStream bufferedOutputStream = null;
             try {
+                CipherInputStream cipherInputStream = new CipherInputStream(inputStream,cipher);
                 fos = new FileOutputStream(out);
-                bufferedOutputStream = new BufferedOutputStream(fos);
-
-                do {
-                    bufferedOutputStream.write(aByte);
-                    bytesRead = cipherInputStream.read(aByte);
-                } while (bytesRead != -1);
-
-                bufferedOutputStream.flush();
-                bufferedOutputStream.close();
+                byte[] fileBytes = new byte[1024];
+                int i = 0;
+                while((i = cipherInputStream.read(fileBytes)) > -1){
+                    fos.write(fileBytes,0,i);
+                }
+                fos.flush();
+                fos.close();
                 socket.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -51,6 +45,8 @@ public class FileClient {
     }
 
     public static void main(String[] args) {
+        String[] ip = {"127.0.0.1"};
+        FoamFile file = new FoamFile(ip,3248,"copy.mp3",100);
 
     }
 }
