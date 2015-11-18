@@ -1,3 +1,4 @@
+package foamchat;
 
 import java.io.Serializable;
 

@@ -1,3 +1,5 @@
+package foamchat;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,7 +32,7 @@ public class FoamChatKernel {
         me = new User(encryptor.keyPair.getPublic(), user, IPTools.getHomeNodes());
         chatLog.addUser(me);
 
-        //chatLog.addMessage( new Message("Hi", me, me, encryptor) );
+        //chatLog.addMessage( new foamchat.Message("Hi", me, me, encryptor) );
         peering = new FoamChatPeering(chatLog, man);
         server = new FoamChatServer(chatLog);
     }

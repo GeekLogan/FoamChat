@@ -1,3 +1,4 @@
+package foamchat;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -62,7 +63,7 @@ public class FoamChatPeering extends Thread {
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
-            //Socket sock = new Socket(ip, FoamChatServer.port, 10);
+            //Socket sock = new Socket(ip, foamchat.FoamChatServer.port, 10);
             Socket sock = new Socket();
             sock.connect(new InetSocketAddress(ip, FoamChatServer.port), 1500);
             out = new ObjectOutputStream(sock.getOutputStream());

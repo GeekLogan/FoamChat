@@ -1,3 +1,4 @@
+package foamchat;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

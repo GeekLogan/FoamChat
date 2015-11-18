@@ -1,3 +1,4 @@
+package foamchat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,7 +14,7 @@ public class Message implements Serializable {
     final int from, to; //user # of sender/reciever
     //final FoamFile file;
 
-    public Message(String message_in, User to, User from, EncryptionMachine em) throws Exception {//, FoamFile file) {
+    public Message(String message_in, User to, User from, EncryptionMachine em) throws Exception {//, foamchat.FoamFile file) {
         String[] enc = em.encrypt(message_in, to.key);
 
         this.keyString = enc[0];

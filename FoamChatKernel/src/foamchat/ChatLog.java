@@ -1,3 +1,4 @@
+package foamchat;
 
 import java.io.Serializable;
 import java.util.concurrent.Semaphore;
@@ -78,8 +79,8 @@ public class ChatLog implements Serializable, Cloneable {
         }
 
         LogUtilities.sortFields(this);
-        //LogUtilities.statLog(this);
-        //LogUtilities.dumpLog(this);
+        //foamchat.LogUtilities.statLog(this);
+        //foamchat.LogUtilities.dumpLog(this);
 
     }
 
