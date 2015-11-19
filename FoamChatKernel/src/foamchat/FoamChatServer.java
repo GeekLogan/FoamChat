@@ -48,6 +48,7 @@ public class FoamChatServer extends Thread {
                         connection.getInputStream());
                 ResponderThread rs = new ResponderThread(out, in, chatLog);
             } catch (IOException ex) {
+                ex.printStackTrace();
                 System.err.println("Can not get input connection!");
                 System.exit(402);
             }
@@ -65,7 +66,7 @@ public class FoamChatServer extends Thread {
             this.in = in;
             this.chatLog = cl;
 
-            //System.err.println("Responding to request!");
+            System.err.println("Responding to request!");
             this.start();
         }
 
@@ -77,7 +78,7 @@ public class FoamChatServer extends Thread {
                 out.writeObject(this.chatLog);
                 this.chatLog.unlock();
             } catch (IOException ex) {
-                //System.err.println("Failed to Write object!");
+                System.err.println("Failed to Write object!");
                 //Could not send
             }
 
@@ -87,7 +88,7 @@ public class FoamChatServer extends Thread {
                 this.chatLog.mergeLog(chatIn);
                 this.chatLog.unlock();
             } catch (IOException | ClassNotFoundException ex) {
-                //System.err.println("Failed to rebuild from transmission!");
+                System.err.println("Failed to rebuild from transmission!");
                 //Could not recieve
             }
         }

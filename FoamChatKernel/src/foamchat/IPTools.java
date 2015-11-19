@@ -51,7 +51,7 @@ public class IPTools {
         }
     }
 
-    static String[] getHomeNodes() {
+    public static String[] getHomeNodes() {
         List<String> out = new ArrayList<>();
 
         try {

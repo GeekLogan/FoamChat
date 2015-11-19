@@ -59,7 +59,7 @@ public class FoamChatPeering extends Thread {
             }
         }
 
-        //System.err.println("Trying Connect... (" + ip + ")");
+        System.err.println("Trying Connect... (" + ip + ")");
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
@@ -69,7 +69,7 @@ public class FoamChatPeering extends Thread {
             out = new ObjectOutputStream(sock.getOutputStream());
             in = new ObjectInputStream(sock.getInputStream());
         } catch (IOException ex) {
-            //System.err.println("Could not connect");
+            System.err.println("Could not connect");
             //can't connect
         }
 
@@ -77,14 +77,14 @@ public class FoamChatPeering extends Thread {
         if (in != null && out != null) {
             try {
                 ChatLog recieved = null;
-                //System.err.println("... read Object");
+                System.err.println("... read Object");
                 recieved = (ChatLog) in.readObject();
                 out.writeObject(this.chatLog);
                 if (recieved != null) {
                     this.chatLog.mergeLog(recieved);
                 }
             } catch (IOException | ClassNotFoundException e) {
-                //System.err.println("Peer-processing Broke");
+                System.err.println("Peer-processing Broke");
             }
         }
         this.chatLog.unlock();
